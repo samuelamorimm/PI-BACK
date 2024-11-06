@@ -1,6 +1,7 @@
 from django.db import models
 
 # Create your models here.
+
 class Medico(models.Model):
     nome = models.CharField(verbose_name='Nome', max_length=65)
     especialidade = models.CharField(verbose_name='Especialidade', max_length=65)
@@ -13,6 +14,13 @@ class Medico(models.Model):
 
     def __str__(self) -> str:
         return self.nome
+
+class Horario(models.Model):
+    medico = models.ForeignKey(Medico, on_delete=models.CASCADE)
+    horario = models.TimeField()
+
+    def __str__(self) -> str:
+        return str(self.horario)
 
 class Servico(models.Model):
     nome = models.CharField(max_length=100)
@@ -38,18 +46,19 @@ class Agendamento(models.Model):
         ('F', 'FINALIZADO'),
     ]
     
-    forma_pagamento = [
-        'ESPECIE',
-        'PIX',
-        'CREDITO'
+    FORMA_PAGAMENTO = [
+        ('ESPECIE', 'Espécie'),
+        ('PIX', 'PIX'),
+        ('CREDITO', 'Crédito'),
     ]
 
-
-    status = models.CharField(verbose_name='Status', choices=STATUS_AGENDAMENTO, max_length=1)
+    forma_pagamento = models.CharField(verbose_name='Forma de pagamento', choices=FORMA_PAGAMENTO, max_length=7, default='ESPECIE')
+    status = models.CharField(verbose_name='Status', choices=STATUS_AGENDAMENTO, max_length=1, default='P')
     data_hora = models.DateTimeField()
     servico = models.ForeignKey(Servico, on_delete=models.CASCADE)
     registro = models.DateTimeField(auto_now_add=True)
     id_medico = models.ForeignKey(Medico, on_delete=models.CASCADE, verbose_name='Médico')
+    horario_agendamento = models.ForeignKey(Horario, on_delete=models.CASCADE, verbose_name='Horarios Disponiveis')
 
     class Meta:
         verbose_name = 'Agendamento'

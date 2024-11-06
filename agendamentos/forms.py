@@ -4,4 +4,6 @@ from .models import Agendamento
 class AgendamentoForm(forms.ModelForm):
     class Meta:
         model = Agendamento
-        fields = '__all__'
+        fields = ('__all__')
+
+   
