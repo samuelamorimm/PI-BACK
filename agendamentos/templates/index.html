@@ -1,7 +1,60 @@
-<h2>Agendamentos</h2>
+{% extends 'base.html' %}
 
-<form action="">
-    {% csrf_token %}
-    {{form.as_p}}
-</form>
+{% block conteudo %}
+<div class="container">
+    <h2>Agendamentos</h2>
+    
+    <form action="{% url 'agendar' %}" method="post">
+        {% csrf_token %}
+        {% for field in form%}
+        <div>{{field.label}}:</div>
+        <div class="mb-2">{{field}}</div>
+        {% endfor %}
+        <button class="btn btn-success">Agendar</button>
+        <!-- {{form.as_p}} -->
+    </form>
+</div>
+
+<div class="container">
+    <h2>Historico</h2>
+    <ul class="list-group">
+        {% for agendamento in agendamentos %}
+        <li class="mb-3 d-flex flex-column gap-1">
+            <div>
+                <label for="">Nome:</label> {{agendamento.nome_cliente}}
+            </div>
+            <div>
+                <label for="">CPF:</label> 
+                {{agendamento.cpf_cliente}}
+            </div>
+            <div>
+                <label for="">Hora:</label> 
+                {{agendamento.data}}
+            </div>
+            <div>
+                {% if agendamento.status == "P" %}
+                <span>Status:</span>
+                    <div style="height: 15px; width: 15px; background-color: rgb(212, 25, 25); border-radius: 50%;"></div>
+                {% elif agendamento.status == "A" %}
+                <span>Status:</span>
+                    <div style="height: 15px; width: 15px; background-color: rgb(152, 161, 33); border-radius: 50%;"></div>
+                {% else %}
+                <span>Status:</span>
+                    <div style="height: 15px; width: 15px; background-color: rgb(21, 114, 0); border-radius: 50%;"></div>
+                {% endif %}
+            </div>
+            <div>
+                <a href="{% url 'deletar_agendamento' agendamento.id %}">
+                    <button class="btn btn-danger mt-3">
+                        DELETE
+                    </button>
+                </a>
+            </div>
+            <hr>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
+
 

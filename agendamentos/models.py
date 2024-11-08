@@ -1,6 +1,18 @@
 from django.db import models
 
 # Create your models here.
+class Cliente(models.Model):
+    nome = models.CharField(verbose_name='Nome', max_length=65)
+    email = models.CharField(verbose_name="Email", max_length=100)
+    cpf = models.CharField(verbose_name="CPF", max_length=11)
+    telefone = models.CharField(verbose_name='Telefone', max_length=11)
+
+    class Meta:
+        verbose_name = 'Cliente'
+        verbose_name_plural = "Clientes"
+
+    def __str__(self) -> str:
+        return self.nome
 
 class Medico(models.Model):
     nome = models.CharField(verbose_name='Nome', max_length=65)
@@ -38,6 +50,14 @@ class Servico(models.Model):
 
     def __str__(self) -> str:
         return self.nome
+    
+class ServicosAgendamentos(models.Model):
+    id_servico = models.ForeignKey(Servico, on_delete=models.CASCADE, verbose_name='Serviço')
+    id_medico = models.ForeignKey(Medico, on_delete=models.CASCADE, verbose_name='Médico')
+    descricao = models.TextField(verbose_name='Descrição')
+
+    def __str__(self) -> str:
+        return str(self.id_servico)
 
 class Agendamento(models.Model):
     STATUS_AGENDAMENTO = [
@@ -52,12 +72,14 @@ class Agendamento(models.Model):
         ('CREDITO', 'Crédito'),
     ]
 
+    nome_cliente = models.CharField(verbose_name="Nome", max_length=65)
+    cpf_cliente = models.CharField(verbose_name="CPF", max_length=11)
     forma_pagamento = models.CharField(verbose_name='Forma de pagamento', choices=FORMA_PAGAMENTO, max_length=7, default='ESPECIE')
     status = models.CharField(verbose_name='Status', choices=STATUS_AGENDAMENTO, max_length=1, default='P')
-    data_hora = models.DateTimeField()
-    servico = models.ForeignKey(Servico, on_delete=models.CASCADE)
+    data = models.DateField(verbose_name='Data')
     registro = models.DateTimeField(auto_now_add=True)
     id_medico = models.ForeignKey(Medico, on_delete=models.CASCADE, verbose_name='Médico')
+    servico = models.ForeignKey(ServicosAgendamentos, on_delete=models.CASCADE, verbose_name="Serviço e Médico")
     horario_agendamento = models.ForeignKey(Horario, on_delete=models.CASCADE, verbose_name='Horarios Disponiveis')
 
     class Meta:
@@ -65,15 +87,9 @@ class Agendamento(models.Model):
         verbose_name_plural = 'Agendamentos'
 
     def __str__(self) -> str:
-        return 'Agendamento'
+        return self.nome_cliente
 
-class ServicosAgendamentos(models.Model):
-    id_servico = models.ForeignKey(Servico, on_delete=models.CASCADE)
-    id_agendamento = models.ForeignKey(Agendamento, on_delete=models.CASCADE)
-    descricao = models.TextField()
 
-    def __str__(self) -> str:
-        return self.descricao
 
 
 
