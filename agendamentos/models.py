@@ -27,13 +27,6 @@ class Medico(models.Model):
     def __str__(self) -> str:
         return self.nome
 
-class Horario(models.Model):
-    medico = models.ForeignKey(Medico, on_delete=models.CASCADE)
-    horario = models.TimeField()
-
-    def __str__(self) -> str:
-        return str(self.horario)
-
 class Servico(models.Model):
     nome = models.CharField(max_length=100)
     tipo_servico = [
@@ -54,10 +47,23 @@ class Servico(models.Model):
 class ServicosAgendamentos(models.Model):
     id_servico = models.ForeignKey(Servico, on_delete=models.CASCADE, verbose_name='Serviço')
     id_medico = models.ForeignKey(Medico, on_delete=models.CASCADE, verbose_name='Médico')
+    data = models.DateField(verbose_name='Data')
+
+    HORARIOS_AGENDAMENTOS = [
+        ('1', '08:00 - 09:00'),
+        ('2', '09:00 - 10:00'),
+        ('3', '10:00 - 11:00'),
+        ('4', '11:00 - 12:00'),
+        ('5', '12:00 - 13:00')
+    ]
+    
+    
+
+    horario = models.CharField(verbose_name='Horário', choices=HORARIOS_AGENDAMENTOS, default='1', max_length=1)
     descricao = models.TextField(verbose_name='Descrição')
 
     def __str__(self) -> str:
-        return str(self.id_servico)
+        return f'{self.id_servico} - {self.id_medico} - {self.horario}'
 
 class Agendamento(models.Model):
     STATUS_AGENDAMENTO = [
@@ -79,8 +85,7 @@ class Agendamento(models.Model):
     data = models.DateField(verbose_name='Data')
     registro = models.DateTimeField(auto_now_add=True)
     id_medico = models.ForeignKey(Medico, on_delete=models.CASCADE, verbose_name='Médico')
-    servico = models.ForeignKey(ServicosAgendamentos, on_delete=models.CASCADE, verbose_name="Serviço e Médico")
-    horario_agendamento = models.ForeignKey(Horario, on_delete=models.CASCADE, verbose_name='Horarios Disponiveis')
+    servico = models.ForeignKey(ServicosAgendamentos, on_delete=models.CASCADE, verbose_name="Serviço, Médico e Horário disponiveis")
 
     class Meta:
         verbose_name = 'Agendamento'

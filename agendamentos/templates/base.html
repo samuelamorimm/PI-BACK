@@ -11,6 +11,11 @@
     <title>Hello, world!</title>
   </head>
   <body class="d-flex justify-content-center">
+    <nav>
+      <div><a href="{% url 'agendamentos' %}">Agendamentos</a></div>
+      <div><a href="{% url 'medicos' %}">Médicos</a></div>
+      <div><a href="{% url 'agendas' %}">Agenda de Serviços</a></div>
+    </nav>
     {% block conteudo %}
     {% endblock %}
 

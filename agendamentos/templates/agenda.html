@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+    <div class="container">
+        <form action="{% url 'add_agenda' %}" method="post">
+            {% for fields in form %}
+                {% csrf_token %}
+                {{fields.label}}
+                <div>{{fields}}</div>
+                {% endfor %}
+                <button type="submit" class="btn btn-success mt-4">Registrar Agenda</button>
+        </form>
+    </div>
+{% endblock %}

@@ -16,11 +16,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from agendamentos.views import agendamentos, agendar, deletar_agendamento
+from agendamentos.views import agendamentos, agendar, deletar_agendamento, medicos, add_medico, medico_delete, agendas, add_agenda
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', agendamentos, name='agendamentos'),
     path('agendar/', agendar, name='agendar'),
-    path('deletar/<int:id>', deletar_agendamento, name='deletar_agendamento')
+    path('deletar/<int:id>', deletar_agendamento, name='deletar_agendamento'),
+    path('medico/', medicos, name='medicos'),
+    path('adicionarmed/', add_medico, name='add_medico'),
+    path('deletemed/<int:id>', medico_delete, name='medico_delete'),
+    path('agenda/', agendas, name='agendas'),
+    path('addagenda/', add_agenda, name='add_agenda')
 ]
