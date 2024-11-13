@@ -11,4 +11,23 @@
                 <button type="submit" class="btn btn-success mt-4">Registrar Agenda</button>
         </form>
     </div>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Medico</th>
+            <th>Especialidade</th>
+            <th>Horário</th>
+        </tr>
+
+        {% for agenda in agendas %}
+        <tr>
+            <td>{{agenda.id}}</td>
+            <td>{{agenda.id_medico}}</td>
+            <td>{{agenda.id_servico}}</td>
+            <td>{{agenda.horario}}</td>
+            <td><a href="" class='btn btn-danger'>Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
 {% endblock %}

@@ -64,6 +64,18 @@ class ServicosAgendamentos(models.Model):
 
     def __str__(self) -> str:
         return f'{self.id_servico} - {self.id_medico} - {self.horario}'
+    
+    def get_medico(self):
+        if self.id_medico:
+            return self.id_medico
+        
+    def get_especialidade(self):
+        if self.id_servico:
+            return self.id_servico
+        
+    def get_horario(self):
+        if self.horario:
+            return self.horario
 
 class Agendamento(models.Model):
     STATUS_AGENDAMENTO = [
