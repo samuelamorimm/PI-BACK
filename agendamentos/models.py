@@ -50,16 +50,16 @@ class ServicosAgendamentos(models.Model):
     data = models.DateField(verbose_name='Data')
 
     HORARIOS_AGENDAMENTOS = [
-        ('1', '08:00 - 09:00'),
-        ('2', '09:00 - 10:00'),
-        ('3', '10:00 - 11:00'),
-        ('4', '11:00 - 12:00'),
-        ('5', '12:00 - 13:00')
+        ('08:00 - 09:00', '08:00 - 09:00'),
+        ('09:00 - 10:00', '09:00 - 10:00'),
+        ('10:00 - 11:00', '10:00 - 11:00'),
+        ('11:00 - 12:00', '11:00 - 12:00'),
+        ('12:00 - 13:00', '12:00 - 13:00')
     ]
     
     
 
-    horario = models.CharField(verbose_name='Horário', choices=HORARIOS_AGENDAMENTOS, default='1', max_length=1)
+    horario = models.CharField(verbose_name='Horário', choices=HORARIOS_AGENDAMENTOS, default='1', max_length=13)
     descricao = models.TextField(verbose_name='Descrição')
 
     def __str__(self) -> str:

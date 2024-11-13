@@ -66,6 +66,7 @@ def add_agenda(request):
             return redirect(agendas)
     else:
         form = AgendamentoForm()
+        print('falhou')
     return redirect(agendas)
 #agendas -----------------------
 
