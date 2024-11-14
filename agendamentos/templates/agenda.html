@@ -2,6 +2,7 @@
 
 {% block conteudo %}
     <div class="container">
+        <h2>Agendas</h2>
         <form action="{% url 'add_agenda' %}" method="POST">
             {% for fields in form %}
             {% csrf_token %}
@@ -13,6 +14,7 @@
     </div>
 
     <div class="container">
+        <h2>Agendas Disponiveis</h2>
         <table class="table-bordered">
             <tr>
                 <th class="p-2 text-center">ID</th>
