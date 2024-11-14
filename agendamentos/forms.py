@@ -1,5 +1,5 @@
 from django import forms
-from .models import Agendamento, Medico, ServicosAgendamentos
+from .models import Agendamento, Especialidade, Medico, ServicosAgendamentos
 
 class AgendamentoForm(forms.ModelForm):
     class Meta:
@@ -16,5 +16,10 @@ class MedicoForm(forms.ModelForm):
 class AgendaForm(forms.ModelForm):
     class Meta:
         model = ServicosAgendamentos
+        fields = '__all__'
+        
+class EspecialidadeForm(forms.ModelForm):
+    class Meta:
+        model = Especialidade
         fields = '__all__'
 

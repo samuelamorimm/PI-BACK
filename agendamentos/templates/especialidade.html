@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+    <div class="container">
+        <h1>Especialidades</h1>
+        <form action="{% url 'especialidade_create' %}" method="POST">
+            {% for fields in form %}
+            {% csrf_token %}
+            {{fields.label}}
+            <div>{{fields}}</div>
+            {% endfor %}
+            <button type="submit" class="btn btn-success mt-4">Adicionar Especialidade</button>
+        </form>
+    </div>
+
+    <div class="container">
+        <table class="table-bordered">
+            <tr>
+                <th class="p-2 text-center">ID</th>
+                <th class="p-2 text-center">Especialidade</th>
+                <th class="p-2 text-center">Preço</th>
+            </tr>
+            {% for especialidade in especialidades %}
+            <tr>
+                <td class="p-2 text-center">{{especialidade.id}}</td>
+                <td class="p-2 text-center">{{especialidade.nome}}</td>
+                <td class="p-2 text-center">{{especialidade.preco}}</td>
+                <td class="p-2 text-center"><a href="{% url 'especialidade_delete' especialidade.id %}" class='btn btn-danger'>Delete</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

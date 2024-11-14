@@ -16,16 +16,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from agendamentos.views import agendamentos, agendar, deletar_agendamento, medicos, add_medico, medico_delete, agendas, add_agenda
+from agendamentos.views import agendamentos, agendar, deletar_agendamento, medico_view, medico_create, medico_delete, agenda_view, agenda_create, agenda_delete, especialidade_view, especialidade_create, especialidade_delete
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', agendamentos, name='agendamentos'),
     path('agendar/', agendar, name='agendar'),
     path('deletar/<int:id>', deletar_agendamento, name='deletar_agendamento'),
-    path('medico/', medicos, name='medicos'),
-    path('adicionarmed/', add_medico, name='add_medico'),
-    path('deletemed/<int:id>', medico_delete, name='medico_delete'),
-    path('agenda/', agendas, name='agendas'),
-    path('addagenda/', add_agenda, name='add_agenda')
+    path('medico/', medico_view, name='medicos_view'),
+    path('medicoadd/', medico_create, name='medico_create'),
+    path('medicodel/<int:id>', medico_delete, name='medico_delete'),
+    path('agenda/', agenda_view, name='agendas_view'),
+    path('addagenda/', agenda_create, name='add_agenda'),
+    path('delagenda/<int:id>', agenda_delete, name='agenda_delete'),
+    path('especialidades', especialidade_view, name='especialidades_view'),
+    path('especialidadeadd/', especialidade_create, name='especialidade_create'),
+    path('especialidadedel/<int:id>', especialidade_delete, name ='especialidade_delete')
 ]
