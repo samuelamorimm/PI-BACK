@@ -1,15 +1,16 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 
 from agendamentos.models import Agendamento,Medico, ServicosAgendamentos, Especialidade
 from .forms import AgendamentoForm,MedicoForm, AgendaForm, EspecialidadeForm
 
 # Create your views here.
 
-
+@login_required
 def agendamentos(request):
     form = AgendamentoForm()
     agendamentos = Agendamento.objects.all()
-    return render(request, 'index.html', {'agendamentos': agendamentos, 'form':form})
+    return render(request, 'clinica/index.html', {'agendamentos': agendamentos, 'form':form})
 
 def agendar(request):
     if request.method == 'POST':
@@ -31,7 +32,7 @@ def deletar_agendamento(request, id):
 def medico_view(request):
     form = MedicoForm
     medicos = Medico.objects.all()
-    return render(request, 'medico.html', {'form':form, 'medicos':medicos})
+    return render(request, 'clinica/medico.html', {'form':form, 'medicos':medicos})
 
 def medico_create(request):
     if request.method == 'POST':
@@ -55,7 +56,7 @@ def medico_delete(request, id):
 def agenda_view(request):
     agendas = ServicosAgendamentos.objects.all()
     form = AgendaForm()
-    return render(request, 'agenda.html', {'agendas':agendas, 'form': form})
+    return render(request, 'clinica/agenda.html', {'agendas':agendas, 'form': form})
 
 def agenda_create(request):
     if request.method == 'POST':
@@ -79,7 +80,7 @@ def agenda_delete(request, id):
 def especialidade_view(request):
     especialidades = Especialidade.objects.all()
     form = EspecialidadeForm
-    return render(request, 'especialidade.html', {'especialidades':especialidades, 'form':form})
+    return render(request, 'clinica/especialidade.html', {'especialidades':especialidades, 'form':form})
 
 def especialidade_create(request):
     if request.method == 'POST':

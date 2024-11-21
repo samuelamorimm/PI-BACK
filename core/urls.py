@@ -15,12 +15,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 from agendamentos.views import agendamentos, agendar, deletar_agendamento, medico_view, medico_create, medico_delete, agenda_view, agenda_create, agenda_delete, especialidade_view, especialidade_create, especialidade_delete
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', agendamentos, name='agendamentos'),
+    path('home/', agendamentos, name='agendamentos'),
     path('agendar/', agendar, name='agendar'),
     path('deletar/<int:id>', deletar_agendamento, name='deletar_agendamento'),
     path('medico/', medico_view, name='medicos_view'),
@@ -31,5 +31,6 @@ urlpatterns = [
     path('delagenda/<int:id>', agenda_delete, name='agenda_delete'),
     path('especialidades', especialidade_view, name='especialidades_view'),
     path('especialidadeadd/', especialidade_create, name='especialidade_create'),
-    path('especialidadedel/<int:id>', especialidade_delete, name ='especialidade_delete')
+    path('especialidadedel/<int:id>', especialidade_delete, name ='especialidade_delete'),
+    path('accounts/', include('usuarios.urls')),
 ]

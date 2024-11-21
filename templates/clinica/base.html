@@ -69,11 +69,24 @@
       <h3 class="mb-3">Cliente/Adm</h3>
 
       <a href="{% url 'agendamentos' %}">Agendamentos</a>
+      {% if user.is_superuser %}
       <a href="{% url 'medicos_view' %}">Médicos</a>
       <a href="{% url 'agendas_view' %}">Agenda de Serviços</a>
       <a href="{% url 'especialidades_view' %}">Especialidades</a>
+      {% endif %}
     </nav>
+
+    <div class="container">
+    {% if user.is_superuser %}
+    
+    <h2>Bem-vindo, administrador!</h2>
+    {% else %}
+    <div class="container"></div>
+    <h2>Bem-vindo, usuário!</h2>
+    {% endif %}
+    </div> <br>
     {% block conteudo %}
+      
     {% endblock %}
 
     <!-- Optional JavaScript; choose one of the two! -->
