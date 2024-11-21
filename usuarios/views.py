@@ -13,13 +13,14 @@ def cadastro(request):
         email = request.POST.get('email')
         senha = request.POST.get('senha')
         
+        #verifica sem já existe um user como este cadastrado
         user = User.objects.filter(username=username).first()
         if user:
             return HttpResponse('Usuário existente')
         
         user = User.objects.create_user(username=username, email=email, password=senha)
         user.save()
-        return HttpResponse('Cadastrado com sucesso')
+        return redirect(login)
 
 def login(request):
     if request.method == 'GET':

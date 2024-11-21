@@ -18,7 +18,8 @@ body {
     background-color: #ffffff;
     border-radius: 15px;
     width: 960px;
-    height: 50%;
+    height: 75%;
+    
     justify-content: space-between;
     align-items: center;
     position: relative;
@@ -59,11 +60,10 @@ body {
     border-radius: 15px;
     text-transform: uppercase;
     color: #fff;
-    font-size: 10px;
+    font-size: 12px;
     padding: 10px 50px;
     cursor: pointer;
-    font-weight: bold;
-    width: 150px;
+    font-weight: bolder;
     align-self: center;
     border: none;
     margin-top: 1rem;
