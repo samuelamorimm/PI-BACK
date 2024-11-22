@@ -66,7 +66,7 @@
       <div class="profile">
 
       </div>
-      <h3 class="mb-3">Cliente/Adm</h3>
+      <h3 class="mb-3">{{user.username}}</h3>
 
       <a href="{% url 'agendamentos' %}">Agendamentos</a>
       {% if user.is_superuser %}
@@ -74,15 +74,16 @@
       <a href="{% url 'agendas_view' %}">Agenda de Serviços</a>
       <a href="{% url 'especialidades_view' %}">Especialidades</a>
       {% endif %}
+      <a class="btn btn-danger" href="{% url 'logout' %}">Logout</a>
     </nav>
 
     <div class="container">
     {% if user.is_superuser %}
     
-    <h2>Bem-vindo, administrador!</h2>
+    <h2>Bem-vindo, administrador: {{user.username}}!</h2>
     {% else %}
     <div class="container"></div>
-    <h2>Bem-vindo, usuário!</h2>
+    <h2>Bem-vindo, usuário! {{user.username}}</h2>
     {% endif %}
     </div> <br>
     {% block conteudo %}

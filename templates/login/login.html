@@ -36,29 +36,38 @@
                         
                     </ul>
                 </div><!-- social media -->
+
+                <p class="description description-second" style="color: red;">
+                    {% if messages %}
+                        {% for message in messages %}
+                            {{ message }}
+                        {% endfor %}
+                    {% endif %}
+                </p>
+
                 <p class="description description-second">ou use seu e-mail para cadastro:</p>
                 <form class="form" action="{% url 'cadastro' %}" method="post">
                     {% csrf_token %}
 
                     <label class="label-input" for="">
                         <i class="far fa-user icon-modify"></i>
-                        {{form.first_name}}
+                        <input type="text" name="username" placeholder="Usuário">
                     </label>
 
 
-                    <label class="label-input" for="">
-                        <i class="far fa-user icon-modify"></i>
-                        {{form.username}}
-                    </label>
-                    
                     <label class="label-input" for="">
                         <i class="far fa-envelope icon-modify"></i>
-                        {{form.email}}
+                        <input type="email" name="email" placeholder="E-mail">
                     </label>
                     
                     <label class="label-input" for="">
                         <i class="fas fa-lock icon-modify"></i>
-                        {{form.password}}
+                        <input type="password" name="senha" placeholder="Senha">
+                    </label>
+                    
+                    <label class="label-input" for="">
+                        <i class="fas fa-lock icon-modify"></i>
+                        <input type="password" name="confirmar_senha" placeholder="Confirmar Senha">
                     </label>
                     
                     <button class="btn btn-second" type="submit" value="Inscrever-se">Inscrever-se</button>       
@@ -99,12 +108,12 @@
                     {% csrf_token %}
                     <label class="label-input" for="">
                         <i class="far fa-envelope icon-modify"></i>
-                        <input type="text" placeholder="Usuário..." name="username">
+                        <input type="text" placeholder="Usuário" name="username">
                     </label>
                 
                     <label class="label-input" for="">
                         <i class="fas fa-lock icon-modify"></i>
-                        <input type="password" placeholder="Senha" name="password">
+                        <input type="password" placeholder="Senha" name="senha">
                     </label>
                 
                     <a class="password" href="#">Esqueceu sua senha?</a>

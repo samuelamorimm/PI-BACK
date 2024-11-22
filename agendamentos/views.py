@@ -29,6 +29,7 @@ def deletar_agendamento(request, id):
     return redirect(agendamentos)
 
 #medicos --------------------
+@login_required
 def medico_view(request):
     form = MedicoForm
     medicos = Medico.objects.all()
@@ -53,6 +54,7 @@ def medico_delete(request, id):
 #medicos --------------------
 
 #agendas -----------------------
+@login_required
 def agenda_view(request):
     agendas = ServicosAgendamentos.objects.all()
     form = AgendaForm()
@@ -77,6 +79,7 @@ def agenda_delete(request, id):
 #agendas -----------------------
 
 #especialidades -----------------------------------------
+@login_required
 def especialidade_view(request):
     especialidades = Especialidade.objects.all()
     form = EspecialidadeForm
