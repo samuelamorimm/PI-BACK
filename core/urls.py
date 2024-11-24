@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import include, path
 from agendamentos.views import agendamentos, agendar, deletar_agendamento, medico_view, medico_create, medico_delete, agenda_view, agenda_create, agenda_delete, especialidade_view, especialidade_create, especialidade_delete
 
+from usuarios import views as views_usuarios
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/', agendamentos, name='agendamentos'),
@@ -32,5 +34,11 @@ urlpatterns = [
     path('especialidades', especialidade_view, name='especialidades_view'),
     path('especialidadeadd/', especialidade_create, name='especialidade_create'),
     path('especialidadedel/<int:id>', especialidade_delete, name ='especialidade_delete'),
+
+
     path('accounts/', include('usuarios.urls')),
+
+
+    path('cliente', views_usuarios.cliente, name='cliente'),
+    path('editar_cliente', views_usuarios.editar_cliente, name='editar_cliente'),
 ]
