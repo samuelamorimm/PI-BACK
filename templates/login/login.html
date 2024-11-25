@@ -1,129 +1,101 @@
-{% load static %}
-
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login</title>
-    <link rel="stylesheet" href="{% static "css/style.css" %}">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
-        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <title>Login com Google - Firebase</title>
+    <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        #userInfo img {
+            border-radius: 50%;
+            width: 100px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+        }
+    </style>
 </head>
+
 <body>
-    <div class="container">
-        <div class="content first-content">
-            <div class="first-column">
-                <img src="{% static 'imgs/img1.png' %}" alt="">
-                <h2 class="title title-primary">Seja bem vindo(a) à HAVEN odonto</h2>
-                <button id="signin" class="btn btn-primary">Entrar</button>
-            </div>    
-            <div class="second-column">
-                <h2 class="title title-second">cadastro</h2>
-                <div class="social-media">
-                    <ul class="list-social-media">
-                        <a class="link-social-media" href="#">
-                            <li class="item-social-media">
-                                <i class="fab fa-facebook-f"></i>        
-                            </li>
-                        </a>
-                        <a class="link-social-media" href="#">
-                            <li class="item-social-media">
-                                <i class="fab fa-google-plus-g"></i>
-                            </li>
-                        </a>
-                        
-                    </ul>
-                </div><!-- social media -->
-
-                <p class="description description-second" style="color: red;">
-                    {% if messages %}
-                        {% for message in messages %}
-                            {{ message }}
-                        {% endfor %}
-                    {% endif %}
-                </p>
-
-                <p class="description description-second">ou use seu e-mail para cadastro:</p>
-                <form class="form" action="{% url 'cadastro' %}" method="post">
-                    {% csrf_token %}
-
-                    <label class="label-input" for="">
-                        <i class="far fa-user icon-modify"></i>
-                        <input type="text" name="username" placeholder="Usuário">
-                    </label>
-
-
-                    <label class="label-input" for="">
-                        <i class="far fa-envelope icon-modify"></i>
-                        <input type="email" name="email" placeholder="E-mail">
-                    </label>
-                    
-                    <label class="label-input" for="">
-                        <i class="fas fa-lock icon-modify"></i>
-                        <input type="password" name="senha" placeholder="Senha">
-                    </label>
-                    
-                    <label class="label-input" for="">
-                        <i class="fas fa-lock icon-modify"></i>
-                        <input type="password" name="confirmar_senha" placeholder="Confirmar Senha">
-                    </label>
-                    
-                    <button class="btn btn-second" type="submit" value="Inscrever-se">Inscrever-se</button>       
-                </form>
-            </div><!-- second column -->
-        </div><!-- first content -->
-        <div class="content second-content">
-            <div class="first-column">
-                <img src="{% static 'imgs/img1.png' %}" alt="" id="logo">
-                <h2 class="title title-primary">Seja bem vindo(a) à HAVEN odonto</h2>
-                <button id="signup" class="btn btn-primary">inscrever-se</button>
-            </div>
-            <div class="second-column">
-                <h2 class="title title-second">conectar-se à HAVEN odonto</h2>
-                <div class="social-media">
-                    <ul class="list-social-media">
-                        <a class="link-social-media" href="#">
-                            <li class="item-social-media">
-                                <i class="fab fa-facebook-f"></i>
-                            </li>
-                        </a>
-                        <a class="link-social-media" href="#">
-                            <li class="item-social-media">
-                                <i class="fab fa-google-plus-g"></i>
-                            </li>
-                        </a>  
-                    </ul>
-                </div><!-- social media -->
-                <p class="description description-second" style="color: red;">
-                    {% if messages %}
-                        {% for message in messages %}
-                            {{ message }}
-                        {% endfor %}
-                    {% endif %}
-                </p>
-                <p class="description description-second">ou use sua conta de e-mail:</p>
-                <form class="form" method="post" action="{% url 'login' %}">
-                    {% csrf_token %}
-                    <label class="label-input" for="">
-                        <i class="far fa-envelope icon-modify"></i>
-                        <input type="text" placeholder="Usuário" name="username">
-                    </label>
-                
-                    <label class="label-input" for="">
-                        <i class="fas fa-lock icon-modify"></i>
-                        <input type="password" placeholder="Senha" name="senha">
-                    </label>
-                
-                    <a class="password" href="#">Esqueceu sua senha?</a>
-                    <button type="submit" class="btn btn-second">Entrar</button>
-                </form>
-            </div><!-- second column -->
-        </div><!-- second-content -->
+    <h1>Login com Google</h1>
+    <div id="authSection">
+        <button id="loginButton">Entrar com Google</button>
+        <button id="logoutButton" style="display: none;">Sair</button>
     </div>
-    <script src="{% static 'js/app.js' %}">
+    <div id="userInfo" style="margin-top: 20px;"></div>
 
+    <script>
+        // Configuração do Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyAzsGLJgDrLInbfQ2LsZMM58IRDS8u3Pyw",
+            authDomain: "haveodonto-7d87b.firebaseapp.com",
+            projectId: "haveodonto-7d87b",
+            storageBucket: "haveodonto-7d87b.appspot.com",
+            messagingSenderId: "530655800562",
+            appId: "1:530655800562:web:10696cfa0a50e9ab8a346b"
+        };
+
+        // Inicializando o Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        // Referências aos botões e seções
+        const loginButton = document.getElementById("loginButton");
+        const logoutButton = document.getElementById("logoutButton");
+        const userInfo = document.getElementById("userInfo");
+
+        // Função para login com Google
+        loginButton.addEventListener("click", async () => {
+            const provider = new firebase.auth.GoogleAuthProvider();
+
+            try {
+                const result = await auth.signInWithPopup(provider);
+                const user = result.user;
+
+                // Exibir informações do usuário
+                userInfo.innerHTML = `
+                    <p><strong>Bem-vindo, ${user.displayName}!</strong></p>
+                    <p>Email: ${user.email}</p>
+                    <img src="${user.photoURL}" alt="Foto do perfil">
+                `;
+
+                // Alterar visibilidade dos botões
+                loginButton.style.display = "none";
+                logoutButton.style.display = "inline-block";
+            } catch (error) {
+                console.error("Erro durante login:", error);
+                alert("Erro ao fazer login. Tente novamente.");
+            }
+        });
+
+        // Função para logout
+        logoutButton.addEventListener("click", async () => {
+            try {
+                await auth.signOut();
+
+                // Limpar informações do usuário e atualizar botões
+                userInfo.innerHTML = "";
+                loginButton.style.display = "inline-block";
+                logoutButton.style.display = "none";
+            } catch (error) {
+                console.error("Erro durante logout:", error);
+                alert("Erro ao fazer logout. Tente novamente.");
+            }
+        });
     </script>
 </body>
+
 </html>

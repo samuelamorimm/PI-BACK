@@ -45,6 +45,15 @@ INSTALLED_APPS += [
     'usuarios',
 ]
 
+INSTALLED_APPS += [
+    'django.contrib.sites',  # Necessário para o django-allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',  # Provedor Google
+]
+
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -53,6 +62,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "allauth.account.middleware.AccountMiddleware",
+]
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',  # Autenticação padrão
+    'allauth.account.auth_backends.AuthenticationBackend',  # Autenticação do allauth
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -105,6 +120,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+SITE_ID = 1
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
@@ -132,6 +148,27 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+
+# Redirecionamentos após login/logout
+# LOGIN_REDIRECT_URL = '/'
+# LOGOUT_REDIRECT_URL = '/'
 LOGIN_REDIRECT = '/home/'
 LOGIN_REDIRECT_URL = '/home/'
 
+# Configurações de conta
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
+
+# Configurações do Google
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': 'SEU_CLIENT_ID',
+            'secret': 'SUA_SECRET_KEY',
+        },
+        'SCOPE': ['profile', 'email'],
+        'AUTH_PARAMS': {'access_type': 'online'},
+    }
+}
