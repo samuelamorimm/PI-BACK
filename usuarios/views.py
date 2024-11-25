@@ -29,9 +29,9 @@ def cadastro(request):
                 return redirect('login')
             
             
-            user = User.objects.filter(email=email)
+            user = User.objects.filter(username=username)
             if user.exists():
-                messages.error(request, 'Já existe um usuário cadastrado com esse E-mail')
+                messages.error(request, 'Já existe alguém cadastrado com esse usuário')
                 return redirect('login')
             
             user = User.objects.create_user(
@@ -40,6 +40,7 @@ def cadastro(request):
                 password=senha,
             )
             
+            messages.success(request,'Usuário cadastrado com sucesso!')
             return redirect('login')
 
 
@@ -56,7 +57,7 @@ def login(request):
             print(user)
             if user:
                 login_django(request, user)
-                return redirect('editar_cliente')
+                return redirect('agendamentos')
             else:
                 messages.error(request, 'Usuário ou senha incorretos!')
                 return redirect('login')
@@ -97,7 +98,7 @@ def editar_cliente(request):
 def cliente(request):
     try:
         cliente = Cliente.objects.get(user=request.user)
-    except cliente.DoesNotExist:
+    except Cliente.DoesNotExist:
         cliente = None
 
     return render(request, 'login/cliente.html', {"cliente": cliente})

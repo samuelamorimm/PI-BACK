@@ -9,7 +9,11 @@ from .forms import AgendamentoForm,MedicoForm, AgendaForm, EspecialidadeForm
 @login_required
 def agendamentos(request):
     form = AgendamentoForm()
-    agendamentos = Agendamento.objects.all()
+    if request.user.is_staff:  # Se for admin, ele verá todos os agendamentos
+        agendamentos = Agendamento.objects.all()
+    else:
+        # Caso contrário, só mostra os agendamentos do próprio usuário
+        agendamentos = Agendamento.objects.filter(user=request.user)
     return render(request, 'clinica/index.html', {'agendamentos': agendamentos, 'form':form})
 
 def agendar(request):
@@ -31,6 +35,9 @@ def deletar_agendamento(request, id):
 #medicos --------------------
 @login_required
 def medico_view(request):
+    if not request.user.is_staff: #se usuário não for adm
+        return redirect('agendamentos')
+
     form = MedicoForm
     medicos = Medico.objects.all()
     return render(request, 'clinica/medico.html', {'form':form, 'medicos':medicos})
@@ -56,6 +63,9 @@ def medico_delete(request, id):
 #agendas -----------------------
 @login_required
 def agenda_view(request):
+    if not request.user.is_staff: #se usuário não for adm
+        return redirect('agendamentos')
+
     agendas = ServicosAgendamentos.objects.all()
     form = AgendaForm()
     return render(request, 'clinica/agenda.html', {'agendas':agendas, 'form': form})
