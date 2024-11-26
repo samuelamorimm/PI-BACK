@@ -80,6 +80,18 @@ class Agendamento(models.Model):
 
     def __str__(self) -> str:
         return self.nome_cliente
+    
+    def get_cpf(self):
+        if self.cpf_cliente:
+            cpf = str(self.cpf_cliente)
+            
+            cpf_parte_um = cpf[0:3]
+            cpf_parte_dois = cpf[3:6]
+            cpf_parte_tres = cpf[6:9]
+            cpf_parte_quatro = cpf[9:]
+            
+            cpf_formatado = f'{cpf_parte_um}.{cpf_parte_dois}.{cpf_parte_tres}-{cpf_parte_quatro}'
+            return cpf_formatado
 
 
 

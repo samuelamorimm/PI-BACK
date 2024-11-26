@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
@@ -19,13 +20,19 @@ def agendamentos(request):
 def agendar(request):
     if request.method == 'POST':
         print(request.POST)
+
+        data = request.POST.get('data')
+        
         form = AgendamentoForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect(agendamentos)
+            agendamento = form.save(commit=False)
+            agendamento.user = request.user
+            agendamento.data = data
+            agendamento.save()
     else:
         form = AgendamentoForm()
     return redirect(agendamentos)
+
 
 def deletar_agendamento(request, id):
     agendamento = get_object_or_404(Agendamento, id=id)

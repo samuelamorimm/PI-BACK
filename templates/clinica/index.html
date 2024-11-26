@@ -11,6 +11,7 @@
         <div>{{field.label}}:</div>
         <div class="mb-2">{{field}}</div>
         {% endfor %}
+        <div><input type="date" name="data" class="mb-2"></div>
         <button class="btn btn-success">Agendar</button>
         <!-- {{form.as_p}} -->
     </form>
@@ -27,11 +28,15 @@
             </div>
             <div>
                 <label for="">CPF:</label> 
-                {{agendamento.cpf_cliente}}
+                {{agendamento.get_cpf}}
             </div>
             <div>
                 <label for="">Serviço:</label> 
                 {{agendamento.servico}}
+            </div>
+            <div>
+                <label for="">Registro:</label>
+                {{agendamento.registro}}
             </div>
             <div>
                 {% if agendamento.status == "P" %}
@@ -49,6 +54,14 @@
                 <a href="{% url 'deletar_agendamento' agendamento.id %}">
                     <button class="btn btn-danger mt-3">
                         DELETE
+                    </button>
+                </a>
+                
+            </div>
+            <div>
+                <a href="{% url 'editar_agendamento' agendamento.id %}">
+                    <button class="btn btn-primary">
+                        Edit
                     </button>
                 </a>
             </div>
