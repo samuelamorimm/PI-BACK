@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.auth.models import User
 
 # Create your models here.
     
@@ -64,8 +63,6 @@ class Agendamento(models.Model):
         ('PIX', 'PIX'),
         ('CREDITO', 'Crédito'),
     ]
-
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
     nome_cliente = models.CharField(verbose_name="Nome", max_length=65)
     cpf_cliente = models.CharField(verbose_name="CPF", max_length=11)
     forma_pagamento = models.CharField(verbose_name='Forma de pagamento', choices=FORMA_PAGAMENTO, max_length=7, default='ESPECIE')

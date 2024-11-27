@@ -10,11 +10,7 @@ from .forms import AgendamentoForm,MedicoForm, AgendaForm, EspecialidadeForm
 @login_required
 def agendamentos(request):
     form = AgendamentoForm()
-    if request.user.is_staff:  # Se for admin, ele verá todos os agendamentos
-        agendamentos = Agendamento.objects.all()
-    else:
-        # Caso contrário, só mostra os agendamentos do próprio usuário
-        agendamentos = Agendamento.objects.filter(user=request.user)
+    agendamentos = Agendamento.objects.all()
     return render(request, 'clinica/index.html', {'agendamentos': agendamentos, 'form':form})
 
 @login_required

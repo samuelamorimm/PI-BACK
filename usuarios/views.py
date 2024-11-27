@@ -29,9 +29,9 @@ def cadastro(request):
                 return redirect('login')
             
             
-            user = User.objects.filter(username=username)
+            user = User.objects.filter(email=email)
             if user.exists():
-                messages.error(request, 'Já existe alguém cadastrado com esse usuário')
+                messages.error(request, 'Já existe um usuário cadastrado com esse E-mail')
                 return redirect('login')
             
             user = User.objects.create_user(
@@ -40,7 +40,6 @@ def cadastro(request):
                 password=senha,
             )
             
-            messages.success(request,'Usuário cadastrado com sucesso!')
             return redirect('login')
 
 
@@ -98,7 +97,7 @@ def editar_cliente(request):
 def cliente(request):
     try:
         cliente = Cliente.objects.get(user=request.user)
-    except Cliente.DoesNotExist:
+    except cliente.DoesNotExist:
         cliente = None
 
     return render(request, 'login/cliente.html', {"cliente": cliente})
