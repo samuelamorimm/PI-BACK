@@ -128,10 +128,12 @@ def agenda_view(request):
 
 def agenda_create(request):
     if request.method == 'POST':
-        print(request.POST)
+        data = request.POST.get('data')
         form = AgendaForm(request.POST)
         if form.is_valid():
-            form.save()
+            agenda = form.save(commit=False)
+            agenda.data = data
+            agenda.save()
             return redirect(agenda_view)
     else:
         form = AgendamentoForm()

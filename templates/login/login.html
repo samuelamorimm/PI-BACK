@@ -1,129 +1,97 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login</title>
-    <link rel="stylesheet" href="{% static "css/style.css" %}">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
-        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+
+
+    <title>Have Odonto</title>
 </head>
+
 <body>
-    <div class="container">
-        <div class="content first-content">
-            <div class="first-column">
-                <img src="{% static 'imgs/img1.png' %}" alt="">
-                <h2 class="title title-primary">Seja bem vindo(a) à HAVEN odonto</h2>
-                <button id="signin" class="btn btn-primary">Entrar</button>
-            </div>    
-            <div class="second-column">
-                <h2 class="title title-second">cadastro</h2>
-                <div class="social-media">
-                    <ul class="list-social-media">
-                        <a class="link-social-media" href="#">
-                            <li class="item-social-media">
-                                <i class="fab fa-facebook-f"></i>        
-                            </li>
-                        </a>
-                        <a class="link-social-media" href="#">
-                            <li class="item-social-media">
-                                <i class="fab fa-google-plus-g"></i>
-                            </li>
-                        </a>
-                        
-                    </ul>
-                </div><!-- social media -->
-
-                <p class="description description-second" style="color: red;">
-                    {% if messages %}
-                        {% for message in messages %}
-                            {{ message }}
-                        {% endfor %}
-                    {% endif %}
-                </p>
-
-                <p class="description description-second">ou use seu e-mail para cadastro:</p>
-                <form class="form" action="{% url 'cadastro' %}" method="post">
-                    {% csrf_token %}
-
-                    <label class="label-input" for="">
-                        <i class="far fa-user icon-modify"></i>
-                        <input type="text" name="username" placeholder="Usuário">
-                    </label>
 
 
-                    <label class="label-input" for="">
-                        <i class="far fa-envelope icon-modify"></i>
-                        <input type="email" name="email" placeholder="E-mail">
-                    </label>
-                    
-                    <label class="label-input" for="">
-                        <i class="fas fa-lock icon-modify"></i>
-                        <input type="password" name="senha" placeholder="Senha">
-                    </label>
-                    
-                    <label class="label-input" for="">
-                        <i class="fas fa-lock icon-modify"></i>
-                        <input type="password" name="confirmar_senha" placeholder="Confirmar Senha">
-                    </label>
-                    
-                    <button class="btn btn-second" type="submit" value="Inscrever-se">Inscrever-se</button>       
-                </form>
-            </div><!-- second column -->
-        </div><!-- first content -->
-        <div class="content second-content">
-            <div class="first-column">
-                <img src="{% static 'imgs/img1.png' %}" alt="" id="logo">
-                <h2 class="title title-primary">Seja bem vindo(a) à HAVEN odonto</h2>
-                <button id="signup" class="btn btn-primary">inscrever-se</button>
+
+    <div class="container" id="container">
+        <div class="form-container sign-up">
+            <form method="post" action="{% url 'cadastro' %}">
+                {% csrf_token %}
+                <h1>Registrar</h1>
+                <div class="social-icons">
+                    <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+                </div>
+                <span>ou então use o seu e-mail para se registrar:</span>
+                <div style="display: flex; width: 100%; align-items: center; gap: 10px;" class="div_inputs">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" placeholder="Nome" name="username">
+                </div>
+
+                <div style="display: flex; width: 100%; align-items: center; gap: 10px;" class="div_inputs">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email" placeholder="E-mail" name="email">
+                </div>
+
+                <div style="display: flex; width: 100%; align-items: center; gap: 10px;" class="div_inputs">
+                    <i class="fa-solid fa-key"></i>
+                    <input type="password" placeholder="Senha" name="senha">
+                </div>
+
+                <div style="display: flex; width: 100%; align-items: center; gap: 10px;" class="div_inputs">
+                    <i class="fa-solid fa-key"></i>
+                    <input type="password" placeholder="Confirmar senha" name="confirmar_senha">
+                </div>
+                <button>Criar</button>
+            </form>
+        </div>
+        <div class="form-container sign-in">
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                <h1>Entrar</h1>
+                <div class="social-icons">
+                    <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+                </div>
+
+
+                <span>ou então use o seu e-mail e senha:</span>
+                <div style="display: flex; width: 100%; align-items: center; gap: 10px;" class="div_inputs">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" placeholder="Usuário" name="username">
+                </div>
+
+                <div style="display: flex; width: 100%; align-items: center; gap: 10px;" class="div_inputs">
+                    <i class="fa-solid fa-key"></i>
+                    <input type="password" placeholder="Senha" name="senha">
+                </div>
+                <a href="#">Esqueceu a sua senha?</a>
+                <button>Entrar</button>
+            </form>
+        </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <img src="{% static '/imgs/svg1.svg' %}" alt="" style="width: 100px;">
+                    <h1>Bem vindo de volta!</h1>
+                    <p>Insira seus dados pessoais para usar todos os recursos do site.</p>
+                    <button class="hidden" id="login">Entrar</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <img src="{% static '/imgs/svg1.svg' %}" alt="" style="width: 100px;">
+                    <h1>Bem vindo à Have Odonto</h1>
+                    <br>
+                    <h4>Não tem conta?</h4>
+                    <p>Registre-se com seus dados pessoais para usar todos os recursos do site.</p>
+                    <button class="hidden" id="register">Criar conta</button>
+                </div>
             </div>
-            <div class="second-column">
-                <h2 class="title title-second">conectar-se à HAVEN odonto</h2>
-                <div class="social-media">
-                    <ul class="list-social-media">
-                        <a class="link-social-media" href="#">
-                            <li class="item-social-media">
-                                <i class="fab fa-facebook-f"></i>
-                            </li>
-                        </a>
-                        <a class="link-social-media" href="#">
-                            <li class="item-social-media">
-                                <i class="fab fa-google-plus-g"></i>
-                            </li>
-                        </a>  
-                    </ul>
-                </div><!-- social media -->
-                <p class="description description-second" style="color: red;">
-                    {% if messages %}
-                        {% for message in messages %}
-                            {{ message }}
-                        {% endfor %}
-                    {% endif %}
-                </p>
-                <p class="description description-second">ou use sua conta de e-mail:</p>
-                <form class="form" method="post" action="{% url 'login' %}">
-                    {% csrf_token %}
-                    <label class="label-input" for="">
-                        <i class="far fa-envelope icon-modify"></i>
-                        <input type="text" placeholder="Usuário" name="username">
-                    </label>
-                
-                    <label class="label-input" for="">
-                        <i class="fas fa-lock icon-modify"></i>
-                        <input type="password" placeholder="Senha" name="senha">
-                    </label>
-                
-                    <a class="password" href="#">Esqueceu sua senha?</a>
-                    <button type="submit" class="btn btn-second">Entrar</button>
-                </form>
-            </div><!-- second column -->
-        </div><!-- second-content -->
+        </div>
     </div>
-    <script src="{% static 'js/app.js' %}">
 
-    </script>
+    <script src="{% static 'js/app.js'%}"></script>
 </body>
+
 </html>

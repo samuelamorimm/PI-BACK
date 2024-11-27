@@ -16,7 +16,7 @@ class MedicoForm(forms.ModelForm):
 class AgendaForm(forms.ModelForm):
     class Meta:
         model = ServicosAgendamentos
-        fields = '__all__'
+        fields = ['especialidade', 'medico', 'horario', 'descricao']
         
 class EspecialidadeForm(forms.ModelForm):
     class Meta:

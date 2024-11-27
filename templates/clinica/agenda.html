@@ -4,11 +4,22 @@
     <div class="container">
         <h2>Agendas</h2>
         <form action="{% url 'add_agenda' %}" method="POST">
-            {% for fields in form %}
             {% csrf_token %}
-            {{fields.label}}
             <div>{{fields}}</div>
-            {% endfor %}
+            <div>{{form.especialidade.label}}</div>
+            <div>{{form.especialidade}}</div>
+
+            <div>{{form.medico.label}}</div>
+            <div>{{form.medico}}</div>
+
+            <label for="">Data: </label>
+            <div><input type="date" name="data" id=""></div>
+
+            <div>{{form.horario.label}}</div>
+            <div>{{form.horario}}</div>
+
+            <div>{{form.descricao.label}}</div>
+            <div>{{form.descricao}}</div>
             <button type="submit" class="btn btn-success mt-4">Registrar Agenda</button>
         </form>
     </div>
@@ -21,6 +32,7 @@
                 <th class="p-2 text-center">Medico</th>
                 <th class="p-2 text-center">Especialidade</th>
                 <th class="p-2 text-center">Horário</th>
+                <th class="p-2 text-center">Data</th>
             </tr>
             {% for agenda in agendas %}
             <tr>
@@ -28,6 +40,7 @@
                 <td class="p-2 text-center">{{agenda.medico}}</td>
                 <td class="p-2 text-center">{{agenda.especialidade}}</td>
                 <td class="p-2 text-center">{{agenda.horario}}</td>
+                <td class="p-2 text-center">{{agenda.data}}</td>
                 <td class="p-2 text-center"><a href="{% url 'agenda_delete' agenda.id %}" class='btn btn-danger'>Delete</a></td>
             </tr>
             {% endfor %}
