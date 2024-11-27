@@ -1,14 +1,12 @@
-
-var btnSignin = document.querySelector("#signin");
-var btnSignup = document.querySelector("#signup");
-
-var body = document.querySelector("body");
+const container = document.getElementById('container');
+const registerBtn = document.getElementById('register');
+const loginBtn = document.getElementById('login');
 
 
-btnSignin.addEventListener("click", function () {
-   body.className = "sign-in-js"; 
+registerBtn.addEventListener('click', () => {
+    container.classList.add("active");
 });
 
-btnSignup.addEventListener("click", function () {
-    body.className = "sign-up-js";
-})
+loginBtn.addEventListener('click', () => {
+    container.classList.remove("active");
+});

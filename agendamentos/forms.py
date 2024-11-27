@@ -4,7 +4,7 @@ from .models import Agendamento, Especialidade, Medico, ServicosAgendamentos
 class AgendamentoForm(forms.ModelForm):
     class Meta:
         model = Agendamento
-        fields = '__all__'
+        fields =  ['nome_cliente', 'cpf_cliente', 'forma_pagamento',]
 
     
 
@@ -16,7 +16,7 @@ class MedicoForm(forms.ModelForm):
 class AgendaForm(forms.ModelForm):
     class Meta:
         model = ServicosAgendamentos
-        fields = '__all__'
+        fields = ['especialidade', 'medico', 'horario', 'descricao']
         
 class EspecialidadeForm(forms.ModelForm):
     class Meta:

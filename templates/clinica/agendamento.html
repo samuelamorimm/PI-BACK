@@ -1,0 +1,19 @@
+{% extends 'clinica/base.html' %}
+
+{% block conteudo %}
+
+    <div class="container">
+        {% if user.is_superuser %}
+        <form action="{% url 'alterar_status_finalizar' agendamento.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success">Finalizar</button>
+        </form>
+
+        <form action="{% url 'alterar_status_iniciar' agendamento.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-warning">Iniciar</button>
+        </form>
+        {% endif %}
+    </div>
+
+{% endblock %}
