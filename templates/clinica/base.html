@@ -108,3 +108,33 @@
     -->
   </body>
 </html>
+
+!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Administração</title>
+  <link rel="stylesheet" href="{% static 'src/css/style.css' %}" />
+  <link rel="shortcut icon" href="src/img/logo-icon.png" type="image/x-icon">
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+        <img class="logo" src="src/img/logo-icon.png" alt="Logo" />
+      <nav>
+        <ul>
+          <li><a href="#">Início</a></li>
+          <li><a href="index.html">Administração</a></li>
+          <li><a href="{% url 'registrar_agendamento' %}">Agendar</a></li>
+          <li><a href="medicos.html">Médicos</a></li>
+          <li><a href="especialidades.html">especialidades</a></li>
+      </ul>
+      </nav>
+    </aside>
+
+    
+  
+  <script src="src/js/script.js"></script>
+</body>
+</html>

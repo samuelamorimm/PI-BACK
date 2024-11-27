@@ -37,6 +37,9 @@ def agendar(request):
         form = AgendamentoForm()
     return redirect(agendamentos)
 
+def registrar_agendamento(request):
+    return render(request, 'clinica/register.html')
+
 @login_required
 def editar_agendamento(request, id):
     agendamento = get_object_or_404(Agendamento, id=id)

@@ -32,3 +32,99 @@
         </table>
     </div>
 {% endblock %}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar especialidade</title>
+    <link rel="stylesheet" href="src/css/style.css">
+    <link rel="shortcut icon" href="src/img/logo-icon.png" type="image/x-icon">
+
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <img class="logo" src="src/img/logo-icon.png" alt="Logo">
+            <ul>
+                <li><a href="#">Início</a></li>
+                <li><a href="index.html">Administração</a></li>
+                <li><a href="resgiter.html">Agendar</a></li>
+                <li><a href="medicos.html">Médicos</a></li>
+                <li><a href="especialidades.html">especialidades</a></li>
+            </ul>
+        </nav>
+
+        <div id="especialidade">
+            <!-- Especialidae -->
+            <div id="form-especialidade">
+                <h1>Especialidades</h1>
+                <form id="form" action="{% url 'especialidade_create' %}" method="POST">
+                    <div>
+                        <label for="nome">Nome:</label>
+                        <input type="text" id="nome" name="nome" required>
+                    </div>
+                    <div>
+                        <label for="preco">Preço:</label>
+                        <input type="text" id="preco" name="preco" required>
+                    </div>
+                    <div>
+                        <label for="descricao">Descrição:</label>
+                        <textarea name="descricao" id="descricao" ></textarea>
+                    </div>
+                    <button type="submit">Adicionar especialidade</button>
+                </form>
+            </div>
+
+            <div id="table-especialidade">
+                <h1>Histórico</h1>
+                <table>
+                <thead>
+                    <tr>
+                    <th>Id</th>
+                    <th>Especialidade</th>
+                    <th>Preço</th>
+                    <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for especialidade in especialidades %}
+                    <tr>
+                    <td>{{especialidade.id}}</td>
+                    <td>{{especialidade.nome}}</td>
+                    <td>{{especialidade.preco}}</td>
+                    <td>
+                        <button class="delete"><img src="src/img/delete.png" alt="Excluir" onclick="excluirForm()"/></button>
+                    </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+            </div>
+        </div>
+        
+    </div>
+
+    
+
+    <!-- Modal personalizado -->
+    <div id="customAlert">
+        <div class="alert-container">
+          <div class="alert-title" id="alertTitle">especialidade cadastrada! </div>
+          <div class="alert-content" id="alertContent">
+            <img src="src/img/check.png" alt="">
+          </div>
+  
+          <div class="alert-footer">
+            <button class="close-btn" onclick="closeAlert()">Fechar</button>
+          </div>
+  
+          </div>
+        
+      </div>
+    
+    <script src="src/js/script.js"></script>
+</body>
+</html>
