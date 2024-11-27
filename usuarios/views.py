@@ -57,7 +57,7 @@ def login(request):
             print(user)
             if user:
                 login_django(request, user)
-                return redirect('agendamentos')
+                return redirect('home')
             else:
                 messages.error(request, 'Usuário ou senha incorretos!')
                 return redirect('login')

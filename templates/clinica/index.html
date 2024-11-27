@@ -11,8 +11,17 @@
         <div>{{field.label}}:</div>
         <div class="mb-2">{{field}}</div>
         {% endfor %}
-        <div><input type="date" name="data" class="mb-2"></div>
-        <button class="btn btn-success">Agendar</button>
+
+        <div>
+            <input type="date" name="data" id="id_data" class="mb-2" required>
+        </div>
+
+        <div>
+            <select name="servico" id="id_servico">
+                <option value="">Selecione um Serviço</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success">Agendar</button>
         <!-- {{form.as_p}} -->
     </form>
 </div>
@@ -31,12 +40,16 @@
                 {{agendamento.get_cpf}}
             </div>
             <div>
+                <label for="">Data:</label>
+                {{agendamento.data}}
+            </div>
+            <div>
                 <label for="">Serviço:</label> 
                 {{agendamento.servico}}
             </div>
             <div>
                 <label for="">Registro:</label>
-                {{agendamento.registro}}
+                {{agendamento.registro|date:"d,  F,  Y" }}
             </div>
             <div>
                 {% if agendamento.status == "P" %}
@@ -70,6 +83,37 @@
         {% endfor %}
     </ul>
 </div>
+<script>
+    document.getElementById('id_data').addEventListener('change', function() {
+        var dataSelecionada = this.value
+    
+        if (dataSelecionada) {
+            fetch(`/buscar-servicos/${dataSelecionada}/`)
+            .then(response => response.json())
+            .then(data => {
+                var servicoSelect = document.getElementById('id_servico');
+                servicoSelect.innerHTML = '<option value="">Selecione um serviço</option>'
+    
+                if (data.servicos.length === 0) {
+                    // Se não houver serviços, exibe a mensagem "Sem serviços para esta data"
+                    var option = document.createElement('option');
+                    option.value = '';
+                    option.textContent = 'Sem serviços para esta data';
+                    option.style.color = 'red'
+                    servicoSelect.appendChild(option);
+                } else {
+                    // Caso haja serviços, adiciona as opções
+                    data.servicos.forEach(function(servico) {
+                        var option = document.createElement('option');
+                        option.value = servico.id;
+                        option.textContent = servico.servico || 'Serviço não disponível'; // Caso algum serviço não tenha nome
+                        servicoSelect.appendChild(option);
+                    });
+                }
+            })
+        }       
+    })
+</script>
 {% endblock %}
 
 

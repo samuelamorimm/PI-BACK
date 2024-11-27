@@ -3,14 +3,17 @@
 {% block conteudo %}
 
     <div class="container">
-        <h2>Meu agendamento</h2>
-        <div>Nome: {{agendamento.nome_cliente}}</div>
-
-        <form action="{% url 'editar_agendamento' agendamento.id %}" method="post">
+        {% if user.is_superuser %}
+        <form action="{% url 'alterar_status_finalizar' agendamento.id %}" method="post">
             {% csrf_token %}
-            {{form.status}}
-            <button type="submit">enviar</button>
+            <button type="submit" class="btn btn-success">Finalizar</button>
         </form>
+
+        <form action="{% url 'alterar_status_iniciar' agendamento.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-warning">Iniciar</button>
+        </form>
+        {% endif %}
     </div>
 
 {% endblock %}
