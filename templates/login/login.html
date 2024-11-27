@@ -1,103 +1,11 @@
 <!DOCTYPE html>
+{% load static %}
+
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
-    <title>Login com Google - Firebase</title>
-    <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 50px;
-        }
-
-        #userInfo img {
-            border-radius: 50%;
-            width: 100px;
-            margin-top: 20px;
-        }
-
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            margin: 10px;
-            cursor: pointer;
-        }
-    </style>
-</head>
-
-<body>
-    <h1>Login com Google</h1>
-    <div id="authSection">
-        <button id="loginButton">Entrar com Google</button>
-        <button id="logoutButton" style="display: none;">Sair</button>
-    </div>
-    <div id="userInfo" style="margin-top: 20px;"></div>
-
-    <script>
-        // Configuração do Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyAzsGLJgDrLInbfQ2LsZMM58IRDS8u3Pyw",
-            authDomain: "haveodonto-7d87b.firebaseapp.com",
-            projectId: "haveodonto-7d87b",
-            storageBucket: "haveodonto-7d87b.appspot.com",
-            messagingSenderId: "530655800562",
-            appId: "1:530655800562:web:10696cfa0a50e9ab8a346b"
-        };
-
-        // Inicializando o Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-
-        // Referências aos botões e seções
-        const loginButton = document.getElementById("loginButton");
-        const logoutButton = document.getElementById("logoutButton");
-        const userInfo = document.getElementById("userInfo");
-
-        // Função para login com Google
-        loginButton.addEventListener("click", async () => {
-            const provider = new firebase.auth.GoogleAuthProvider();
-
-            try {
-                const result = await auth.signInWithPopup(provider);
-                const user = result.user;
-
-                // Exibir informações do usuário
-                userInfo.innerHTML = `
-                    <p><strong>Bem-vindo, ${user.displayName}!</strong></p>
-                    <p>Email: ${user.email}</p>
-                    <img src="${user.photoURL}" alt="Foto do perfil">
-                `;
-
-                // Alterar visibilidade dos botões
-                loginButton.style.display = "none";
-                logoutButton.style.display = "inline-block";
-            } catch (error) {
-                console.error("Erro durante login:", error);
-                alert("Erro ao fazer login. Tente novamente.");
-            }
-        });
-
-        // Função para logout
-        logoutButton.addEventListener("click", async () => {
-            try {
-                await auth.signOut();
-
-                // Limpar informações do usuário e atualizar botões
-                userInfo.innerHTML = "";
-                loginButton.style.display = "inline-block";
-                logoutButton.style.display = "none";
-            } catch (error) {
-                console.error("Erro durante logout:", error);
-                alert("Erro ao fazer logout. Tente novamente.");
-            }
-        });
-    </script>
-=======
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="{% static 'css/style.css'%}">
 
@@ -184,7 +92,6 @@
     </div>
 
     <script src="{% static 'js/app.js'%}"></script>
->>>>>>> 7c3a831ddc6a3f435e3dce2c33dc64257b774b69
 </body>
 
 </html>

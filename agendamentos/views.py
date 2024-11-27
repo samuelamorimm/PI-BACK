@@ -87,12 +87,9 @@ def buscar_servicos(request, data):
 #medicos --------------------
 @login_required
 def medico_view(request):
-<<<<<<< HEAD
-=======
     if not request.user.is_staff: #se usuário não for adm
         return redirect('home')
 
->>>>>>> 7c3a831ddc6a3f435e3dce2c33dc64257b774b69
     form = MedicoForm
     medicos = Medico.objects.all()
     return render(request, 'clinica/medico.html', {'form':form, 'medicos':medicos})
@@ -118,12 +115,9 @@ def medico_delete(request, id):
 #agendas -----------------------
 @login_required
 def agenda_view(request):
-<<<<<<< HEAD
-=======
     if not request.user.is_staff: #se usuário não for adm
         return redirect('home')
 
->>>>>>> 7c3a831ddc6a3f435e3dce2c33dc64257b774b69
     agendas = ServicosAgendamentos.objects.all()
     form = AgendaForm()
     return render(request, 'clinica/agenda.html', {'agendas':agendas, 'form': form})
