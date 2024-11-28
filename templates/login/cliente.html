@@ -24,6 +24,7 @@
                 <h2>Minhas Informações</h2>
 
                 <div class="container-info">
+                    {%if cliente%}
                     <Label class="label-info">Nome:</Label>
                     <p>{{ cliente.nome }}</p>
 
@@ -35,12 +36,17 @@
 
                     <label for="" class="label-info">Telfone:</label>
                     <p>{{cliente.telefone}}</p>
+                    {% else %}
+                    <p style="font-size: large; color: red;">Seu perfil está vazio! Preencha suas informações abaixo.</p>
+                    {% endif %}
+
+
                     {% if user.is_superuser %}
                     <Label>Status:</Label>
-                    <p>Administrador</p>
+                    <p style='font-size: large; color: green;'>Administrador</p>
                     {% else %}
                     <label for="">Status:</label>
-                    <p>Usuário</p>
+                    <p style='font-size: large; color: green;'>Usuário</p>
                     {% endif %}
                 </div>
 
