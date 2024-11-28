@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'feedback/css/thanks.css' %}">
+    <title>Feedback Enviado</title>
+</head>
+<body>
+    <div>
+        <h1>Obrigado pelo seu feedback!</h1>
+    <p>Seu feedback foi enviado com sucesso. Agradecemos pela sua contribuição!</p>
+    <a href="{% url 'send_feedback' %}">Enviar outro feedback</a>
+    </div>
+    
+</body>
+</html>
+

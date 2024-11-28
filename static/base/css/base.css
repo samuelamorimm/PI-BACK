@@ -1,0 +1,431 @@
+/* Resetando margens e preenchimento padrões */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Fonte base e corpo */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+
+.img{
+    border-radius: 10px;
+}
+
+.mais{
+    border-radius: 50px;
+    padding: 15px 15px;
+    margin-top: 30px;
+}
+
+hr{
+    border: 0; /* Remove a borda padrão */
+    height: 3px; /* Define a altura da linha */
+    background-color: #57D3D5; /* Cor da linha */
+    width: 50%; /* Define o comprimento da linha */
+    margin: 30px 470px; /* Espaçamento acima e abaixo da linha */
+    margin-top: -35px;
+ 
+}
+
+/* Cabeçalho */
+header {
+    background-color: #57D3D5;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+header .logo h1 {
+    margin-bottom: 10px;
+}
+
+header nav ul {
+    list-style: none;
+}
+
+header nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+header nav ul li a.cta {
+    background-color: #fff;
+    color: #57D3D5;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+/* Seção Hero */
+#hero {
+    background-color: #57D3D5;
+    color: white;
+    text-align: center;
+    padding: 90px 20px;
+}
+
+#hero h2 {
+    font-size: 3rem;
+}
+
+#hero p {
+    font-size: 1.3rem;
+    padding-bottom: 20px;
+}
+
+.cta {
+    background-color: #fff;
+    color: #57D3D5;
+    padding: 12px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2rem;
+
+}
+
+.cta:hover {
+    opacity: 0.5;
+}
+
+/* Seção de Serviços */
+#servicos {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+#servicos h2 {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+}
+
+.services {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+.service-item {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    text-align: center;
+}
+
+.service-item h3 {
+    color: #57D3D5;
+    margin-bottom: 10px;
+}
+
+.service-item p {
+    font-size: 1rem;
+}
+
+
+/* Seção Blog */
+
+#blog {
+    text-align: center;
+    padding: 60px 20px;
+    
+}
+
+#blog h2 {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+}
+
+.blogg { 
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+.blog-item {
+    background-color: white;
+    /* padding: 20px; */
+    padding-bottom: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    text-align: center;
+}
+
+.blog-item h3 a{
+    color: #57D3D5;
+    margin-bottom: 10px;
+    text-decoration: none;
+}
+
+.blog-item p {
+    font-size: 1.1rem;
+    padding: 10px;
+}
+
+.blog-item #img-post{
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+
+/* Seção Sobre */
+#sobre {
+    padding: 60px 20px;
+    background-color: #e9ecef;
+    text-align: center;
+}
+
+#sobre h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+#sobre p {
+    font-size: 1.1rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Seção Agendamento */
+#agendamento {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+#agendamento h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+form {
+    display: grid;
+    gap: 15px;
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+label {
+    font-size: 1.1rem;
+}
+
+input {
+    padding: 10px;
+    font-size: 1rem;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #57D3D5;
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+   
+}
+
+button:hover {
+    background-color: #57D3D5;
+    cursor: pointer;
+}
+
+.carregando {
+    cursor: wait; /* Muda o cursor para o ícone de carregamento */
+}
+
+
+/* Seção de Contato */
+#contato {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+#contato h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+#contato p {
+    font-size: 1.2rem;
+}
+
+/* Rodapé */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+
+
+#footer_social_media {
+    display: flex;
+    gap: 1.2rem;
+    margin: 5px;
+ 
+}
+
+#footer_social_media .footer-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.5rem;
+    width: 2.5rem;
+    text-decoration: none;
+    border-radius: 50%;
+    transition: all 0.4s;
+}
+
+#footer_social_media .footer-link i {
+    font-size: 1.50rem;
+}
+
+#footer_social_media .footer-link:hover {
+    opacity: 0.3;
+}
+
+#instagram {
+    background: linear-gradient(#7f37c9, #ff2992, #ff9807);
+    color: #e9ecef;
+}
+
+#whatsapp {
+    background-color: #25d366;
+    color: #e9ecef;
+}
+
+.mapbox {
+    margin-top: 1rem;
+}
+
+.endereco{
+    display: flex;
+    gap: 15rem;
+    margin: 25px;
+    justify-content: center;
+    /* align-items: center; */
+}
+
+
+
+/* Media Queries */
+
+/* Para telas pequenas (até 768px, como tablets ou smartphones em paisagem) */
+@media (max-width: 768px) {
+    .services {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .service-item {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .blogg {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .blog-item {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    #hero h2 {
+        font-size: 2.5rem;
+    }
+
+    #hero p {
+        font-size: 1.1rem;
+    }
+
+    header nav ul {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    header nav ul li {
+        margin: 10px 0;
+    }
+
+    .cta {
+        padding: 10px 20px;
+        font-size: 1rem;
+    }
+
+    form {
+        width: 100%;
+        padding: 0 20px;
+    }
+
+    #footer_social_media {
+        flex-direction: column;
+    }
+
+    .mapbox iframe {
+        width: 100%;
+    }
+}
+
+/* Para telas muito pequenas (até 480px, como smartphones em modo retrato) */
+@media (max-width: 480px) {
+    #hero h2 {
+        font-size: 2rem;
+    }
+
+    #hero p {
+        font-size: 1rem;
+    }
+
+    header nav ul li a {
+        font-size: 16px;
+    }
+
+    #servicos h2, #blog h2, #sobre h2, #agendamento h2, #contato h2 {
+        font-size: 2rem;
+    }
+
+    .services {
+        flex-direction: column;
+    }
+
+    .service-item {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .blogg {
+        flex-direction: column;
+    }
+
+    .blog-item {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    form {
+        width: 100%;
+        padding: 0 20px;
+    }}

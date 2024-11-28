@@ -1,0 +1,182 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clínica Odontológica</title>
+    <link rel="stylesheet" href="{% static 'base/css/base.css' %}">
+    <meta name="description" content="Have - Clínica especializada em tratamentos odontologicos e estéticos">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <!-- Seção de Cabeçalho -->
+    <header>
+        <div class="logo">
+            <h1>Clínica Have Odonto</h1>
+            <a href="">
+                <img src="{% static 'base/img/logo.svg' %}" alt="LOGO Have Odonto" class="cabecalho-imagem">
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'post_list' %}">Blog</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                    <li><a href="{% url 'login' %}">Cadastro</a></li>
+                    <li><a href="{% url "login" %}">Login</a></li>
+                    <!-- <li><a href="#agendamento" class="cta">Agende Sua Consulta</a></li> -->
+                </ul>
+            </nav>
+
+        </div>
+    </header>
+
+    <!-- Seção Principal -->
+    <section id="hero">
+        <div class="hero-content">
+            <h2>Seu sorriso, nossa prioridade</h2>
+            <p>Devolvendo novos sorrisos com saúde, função e estética.</p>
+            <a href="{% url 'login' %}" class="cta">Agende sua consulta agora!</a>
+        </div>
+    </section>
+
+    <!-- Seção de Serviços -->
+    <section id="servicos">
+        <h2>Serviços que Oferecemos</h2>
+        <div class="services">
+            <div class="service-item">
+                <h3>Consulta de Rotina</h3>
+                <p>Exames preventivos e limpeza dental para garantir a saúde do seu sorriso.</p>
+            </div>
+            <div class="service-item">
+                <h3>Tratamentos Ortodônticos</h3>
+                <p>Aparelhos dentários para corrigir a posição dos dentes e melhorar a mordida.</p>
+            </div>
+            <div class="service-item">
+                <h3>Clareamento Dental</h3>
+                <p>Procedimentos eficazes para um sorriso mais branco e radiante.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção do Blog -->
+    <section id="blog">
+        <h2>Blog</h2>
+
+        <div class="blogg">
+            {% for post in posts|slice:":3" %}
+                <div class="blog-item">
+                    <a href="{% url 'post_detail' post.pk %}"><img src="{{ post.image.url }}" alt="{{ post.title }}" id="img-post"></a>
+                    <h3><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h3>
+                    <small>Publicado em: {{ post.created_at }}</small>
+                    <p>{{ post.content|truncatewords:30 }}</p>
+                </div>
+            {% endfor %}
+        </div>
+        <a href="{% url 'post_list' %}">
+            <button class="mais">Saiba mais</button>
+        </a>
+    </section>
+
+
+    <!-- Seção Sobre -->
+    <section id="sobre">
+        <h2>Sobre a Clínica</h2>
+        <p>Na Clínica Have Odonto, Trabalhamos com equipamentos modernos e de qualidade, para garantir que você tenha o
+            melhor atendimento odontológico. Estamos comprometidos com sua saúde bucal e bem-estar.</p>
+    </section>
+
+    <!-- Seção de Agendamento -->
+    <section id="agendamento">
+        <h2>Agende Sua Consulta</h2>
+        <form action="/enviar-agendamento" method="POST">
+            <label for="nome">Nome Completo</label>
+            <input type="text" id="nome" name="nome" required>
+
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="data">Escolha a Data</label>
+            <input type="date" id="data" name="data" required>
+
+            <label for="hora">Escolha a Hora</label>
+            <input type="time" id="hora" name="hora" required>
+
+            <button class="Confirmar" type="submit">Confirmar Agendamento</button>
+        </form>
+    </section>
+    <!-- Seção de Contato -->
+
+    <section class="endereco">
+        <!-- <div id="logo2">
+
+            <img src="img/Group 1.svg" alt="LOGO Have Odonto" class="cabecalho-imagem">
+        </div> -->
+
+        <div>
+            <h2>Entre em Contato</h2>
+            <p>Telefone: (86) 99959-5582</p>
+            <p>E-mail: contato@clinicahaveodonto.com</p>
+            <div id="footer_social_media">
+                <a href="https://www.instagram.com/haveodonto/" class="footer-link" id="instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+
+                <a href="https://l.instagram.com/?u=http%3A%2F%2Fencurtador.com.br%2FxTWX0%3Ffbclid%3DPAZXh0bgNhZW0CMTEAAaYnDgvhMwUx1g2LFsE05E1yTnBB1c3Vc90bL2DiiaMhDmX0wdAxLhLgB9U_aem__XSMRQ5egN8s6Qmez5rQfw&e=AT0prUUp00S_sifIgFl85fsVt70hfoBCg8wZOMA_L1tE6PP5aXEIJeYfjt5FNftHtC9KL7obronyZd4If4r7UlO8bAWs0vw8wEwp33B12JxxhqKfcIScZA"
+                    class="footer-link" id="whatsapp">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
+            </div>
+            <br>
+            <h3>Nosso endereço</h3>
+            <p> Av. José dos Santos e Silva, 26 - Piçarra, Teresina - PI, 64017-045</p>
+
+            <p class="hora"><i class="fa-regular fa-clock"></i> Aberto de segunda a saábado das 8h às 18h </p>
+
+        </div>
+        <div class="mapbox">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15896.184084338305!2d-42.801864!3d-5.096262!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x78e378f6c5bfbfd%3A0xa5ee6276d9343ed3!2sHave%20odonto!5e0!3m2!1spt-BR!2sbr!4v1732651566459!5m2!1spt-BR!2sbr"
+                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </section>
+
+
+    <!-- 
+        <a href="aff.html">
+            <img class="img" src="img/Group 3.png" alt="">
+        </a> -->
+
+
+
+    <!-- Rodapé -->
+    <footer>
+        <p>&copy; 2024 Clínica Have Odonto | Todos os direitos reservados</p>
+    </footer>
+
+    <script>
+        document.getElementById("botao").addEventListener("click", function () {
+            // Mudar o cursor para carregando
+            document.body.classList.add("carregando");
+
+            // Simulação de carregamento com um delay (exemplo de 3 segundos)
+            setTimeout(function () {
+                alert("Carregamento concluído!");
+                // Retornar o cursor ao normal após o "carregamento"
+                document.body.classList.remove("carregando");
+            }, 3000); // 3000 ms = 3 segundos
+        });
+
+        document.getElementById('menu-toggle').addEventListener('click', function () {
+            const menu = document.getElementById('menu');
+            menu.classList.toggle('active');
+        });
+
+    </script>
+</body>
+
+</html>

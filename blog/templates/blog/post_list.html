@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'blog/css/style.css' %}">
+    <title>Blog</title>
+</head>
+<body>
+    <h1 id="title-blog">Blog</h1>
+
+    <!-- Exibe o link de "Criar Novo Post" apenas para administradores -->
+    {% if user.is_superuser %}
+            <a href="{% url 'post_create' %}" id="create-post" class="btn-post">Criar Novo Post</a>
+    {% endif %}
+
+    <ul>
+        
+
+        {% for post in posts %}
+            <li id="list-post">
+                <img src="{{ post.image.url }}" alt="{{ post.title }}" id="img-post">
+                <div>
+                    <h2 id="title-post"><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h2>
+                    <small>Publicado em: {{ post.created_at }}</small>
+                    <p id="content-post">{{ post.content|truncatewords:30 }}</p>
+
+                    <!-- Exibe links de edição e exclusão apenas para administradores -->
+                    {% if user.is_superuser %}
+                    
+                    <p>
+                        <a href="{% url 'post_edit' post.pk %}" id="edit-post" class="btn-post">Editar</a> | 
+                        <a href="#" class="btn-post" data-action="delete" data-post-title="{{ post.title }}" data-post-url="{% url 'post_delete' post.pk %}" id="delete-post">Deletar</a>
+                    </p>
+                    {% endif %}
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <!-- Modal de Confirmação de Exclusão -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <h3 id="modal-title">Tem certeza que deseja excluir o post?</h3>
+            <!-- Confirmação de exclusão -->
+            <form id="delete-form" method="post" action="">
+                {% csrf_token %}
+                <button type="submit">Sim, excluir</button>
+            </form>
+            <a href="#" class="cancel-btn">Cancelar</a>
+        </div>
+    </div>
+
+    <script src="{% static 'blog/js/modal.js' %}"></script>
+</body>
+</html>

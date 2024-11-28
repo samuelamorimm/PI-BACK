@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'feedback/css/style.css' %}">
+    <title>Feedback dos Clientes</title>
+</head>
+<body>
+    <div class="feedbacks">
+        <h1 id="title-feedback">Feedback dos Clientes</h1>
+
+        {% if feedbacks %}
+            <ul>
+                {% for feedback in feedbacks %}
+                    <li>
+                        <p>{{ feedback.comment }}</p>
+                        <p>{{feedback.created_at}}</p>
+                        <strong>{{ feedback.name }}</strong>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Não há feedbacks disponíveis no momento.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

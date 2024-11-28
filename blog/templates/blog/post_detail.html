@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'blog/css/style.css' %}">
+    <title>{{ post.title }}</title>
+</head>
+<body>
+    <div id="post-detail">
+        <img src="{{ post.image.url }}" alt="{{ post.title }}" id="img-detail">
+        <h1 id="title-detail">{{ post.title }}</h1>
+        <small id="created-post">Publicado em: {{ post.created_at }}</small>
+        <p id="content-detail">{{ post.content }}</p>
+
+        <a href="{% url 'post_list' %}" id="return-blog">Voltar para a lista de posts</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,103 @@
+/* Resetando o estilo padrão do navegador */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Definindo a fonte e cores principais */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fb;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/* Container principal */
+.feedbacks {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Cabeçalho */
+#title-feedback {
+    text-align: center;
+    color: #4CAF50;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+/* Estilizando os itens da lista de feedbacks */
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+li {
+    border-bottom: 1px solid #ddd;
+    padding: 20px 0;
+}
+
+li:last-child {
+    border-bottom: none;
+}
+
+/* Feedback individual */
+li p {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+li strong {
+    text-align: center;
+    display: block;
+    font-size: 1.2rem;
+    color: #333;
+    margin-top: 5px;
+    font-weight: 600;
+}
+
+/* Data do feedback */
+li p:last-child {
+    font-size: 0.9rem;
+    color: #777;
+}
+
+/* Estilo quando não há feedbacks */
+p {
+    font-size: 1.2rem;
+    color: #777;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Media Query para telas menores */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        width: 100%;
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    li p {
+        font-size: 1rem;
+    }
+
+    li strong {
+        font-size: 1.1rem;
+    }
+}

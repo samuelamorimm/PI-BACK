@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import include, path
 from agendamentos.views import agendamentos, agendar, deletar_agendamento, editar_agendamento, medico_view, medico_create, medico_delete, agenda_view, agenda_create, agenda_delete, especialidade_view, especialidade_create, especialidade_delete, alterar_status_f, alterar_status_i, buscar_servicos
 
@@ -39,3 +41,11 @@ urlpatterns = [
  # URLs do django-allauth
     #path('accounts/', include('allauth.urls')), 
 ]
+
+urlpatterns += [
+    path('', include('blog.urls')),
+    path('feedback/', include('feedback.urls')),
+]
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 

@@ -46,6 +46,11 @@ INSTALLED_APPS += [
 ]
 
 INSTALLED_APPS += [
+    'blog',
+    'feedback',
+]
+
+INSTALLED_APPS += [
     'django.contrib.sites',  # Necessário para o django-allauth
     'allauth',
     'allauth.account',
@@ -143,6 +148,9 @@ DATE_INPUT_FORMATS = ['%d/%m/%Y']
 STATIC_URL = '/static/' # Apenas em produção, para coletar todos os arquivos estáticos em um único diretório 
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

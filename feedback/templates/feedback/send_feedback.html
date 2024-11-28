@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'feedback/css/send-feedback.css' %}">
+    <title>Deixe seu Feedback</title>
+</head>
+<body>
+    <div>
+        <h1>Deixe seu Feedback</h1>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Enviar Feedback</button>
+        </form>
+    </div>
+    
+</body>
+</html>
