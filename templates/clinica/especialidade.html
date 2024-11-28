@@ -28,10 +28,10 @@
                 <table>
                 <thead>
                     <tr>
-                    <th>Id</th>
+                    <th>ID</th>
                     <th>Especialidade</th>
                     <th>Preço</th>
-                    <th></th>
+                    <th style="text-align: center;">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -39,9 +39,11 @@
                     <tr>
                     <td>#{{especialidade.id}}</td>
                     <td>{{especialidade.nome}}</td>
-                    <td>{{especialidade.preco}}</td>
-                    <td>
-                        <button class="delete">Delete</button>
+                    <td>R$ {{especialidade.preco}}</td>
+                    <td class="coluna-btn">
+                        <a href="{% url 'especialidade_delete' especialidade.id %}" class="delete">
+                          <i class="fa-solid fa-trash"></i>
+                        </a>
                     </td>
                 </tr>
                 {% endfor %}

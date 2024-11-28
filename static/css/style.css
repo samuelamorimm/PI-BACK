@@ -24,9 +24,12 @@ body {
     position: relative;
     overflow: hidden;
     width: 768px;
+    height: 700px;
     max-width: 100%;
-    min-height: 480px;
+    min-height: 550px;
 }
+
+
 
 .container p {
     font-size: 14px;
@@ -241,3 +244,4 @@ body {
 .have-img {
     border: 2px solid red;
 }
+

@@ -7,6 +7,7 @@ body {
     margin: 0;
     padding: 0;
     color: #333;
+    overflow: hidden;
 }
 
 header {
@@ -44,6 +45,7 @@ main {
     justify-content: center;
     align-items: center;
     height: calc(100vh - 80px);
+    width: 100vw;
     padding: 10px;
 }
 
@@ -52,13 +54,12 @@ main {
     padding: 20px 30px;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    width: 90%;
-    max-width: 450px;
+    width: 50%;
 }
 
 label {
+    font-size: larger;
     font-weight: bold;
-    margin-top: 10px;
     display: block;
     color: #177577;
 }
@@ -83,7 +84,7 @@ label {
 }
 
 .input-container i {
-    color: #56D3D5;
+    color: #177577;
     margin-left: 10px;
 }
 
@@ -105,7 +106,7 @@ button {
 }
 
 .btn-save {
-    background-color: #56D3D5;
+    background-color: #177577;
     color: white;
     text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.575);
 }
@@ -118,6 +119,22 @@ button {
 button:hover {
     transform: scale(1.05);
     opacity: 0.9;
+}
+
+.container-info {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #177577;
+}
+
+.container-info p {
+    margin: 0;
+    padding: 0;
+}
+
+.label-info {
+    margin: 0;
+    padding: 0;
 }
 
 @media (max-width: 600px) {

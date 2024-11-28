@@ -38,7 +38,7 @@
       <table>
         <thead>
           <tr>
-            <th>Id</th>
+            <th>ID</th>
             <th>Nome</th>
             <th>Serviço  -  Médico  -  Horário</th>
             <th>Data</th>
@@ -49,20 +49,26 @@
         <tbody>
         {% for agendamento in agendamentos %}
           <tr class="consulta">
-            <td>{{agendamento.id}}</td>
+            <td>#{{agendamento.id}}</td>
             <td>{{agendamento.nome_cliente}}</td>
             <td>{{agendamento.servico}}</td>
             <td>{{agendamento.data}}</td>
             
             {% if agendamento.status == "P" %}
-            <td><span class="status pendente">Pendente</span></td>
+            <td class="coluna-status"><span class="status pendente">Pendente</span></td>
             {% elif agendamento.status == "A" %}
-            <td><span class="status andamento">Andamento</span></td>
+            <td class="coluna-status"><span class="status andamento">Andamento</span></td>
             {% else %}
-            <td><span class="status concluido">Concluído</span></td>
+            <td class="coluna-status"><span class="status concluido">Concluído</span></td>
             {% endif %}
-            <td>
-                <button>Delete</button>
+            <td class="coluna-btn">
+                <a href="{% url 'deletar_agendamento' agendamento.id %}" class="delete">
+                  <i class="fa-solid fa-trash"></i>
+                </a>
+
+                <a href="{% url 'editar_agendamento' agendamento.id %}" class="btn-config">
+                  <i class="fa-solid fa-gear"></i>
+                </a>
             </td>
         </tr>
         {% endfor %}

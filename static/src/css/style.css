@@ -63,14 +63,16 @@ body {
     border-radius: 5px;
     padding-left: 5px;
     cursor: pointer;
+    border-bottom: 2px solid;
 }
 
 .sidebar ul li a {
-    color: black;
+    color: rgb(0, 0, 0);
     text-decoration: none;
     text-align: left;
-    font-weight: bold;
+    font-weight: 600;
     font-size: large;
+    letter-spacing: 1px;
     display: block;
     padding: 10px;
     border-radius: 5px;
@@ -81,6 +83,30 @@ body {
     background-color: white;
     width: 100%;
     transition-duration: 0.6s;
+}
+
+.logout{
+  border-radius: 5px;
+  display: flex;
+  gap: 15px;
+  margin-top: 100px;
+  align-items: center;
+  color: white;
+  background-color: #a52424;
+  width: 100%;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.logout a {
+  font-size: larger;
+  color: white;
+  
+}
+
+.logout:hover {
+  color: white;
+  background-color: rgb(226, 114, 114);
 }
 
 .area-logo {
@@ -220,8 +246,12 @@ a{
   
 
 form label {
-    display: block;
-    margin: 10px 0 5px;
+  font-size: larger;
+  font-weight: bold;
+  display: block;
+  color: #177577;
+  margin-bottom: 10px;
+
 }
 
 form input, form select {
@@ -268,14 +298,7 @@ table {
     background: #56D3D5;
   }
 
-  .delete {
-    background: #e6dddd;
-    padding: 5px 10px ;
-    border-radius: 5px;
-    color: #fff;
-    font-weight: bold; 
-      
-  }
+  
 
   .delete img {
     width: 25px;
@@ -319,6 +342,98 @@ form input, form select {
     height: 200px;
     resize: none;
 }
+
+/* alterações s */
+
+.coluna-status {
+  text-align: center;
+}
+
+.coluna-btn {
+  display: flex;
+  gap: 3px;
+  justify-content: space-around;
+}
+
+.delete {
+  background: #a52424;
+  padding: 5px 10px ;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: bold; 
+    
+}
+
+.delete:hover {
+  background-color: #f06868;
+  transition-duration: 0.3s; 
+}
+
+.btn-config {
+  background: #014aaa;
+  padding: 5px 10px ;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: bold;   
+}
+
+.btn-config:hover {
+  background-color: #3f77c0;
+  transition-duration: 0.3s;  
+}
+
+.historico-agendamento {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.historico-agendamento label {
+  font-size: x-large;
+  font-weight: bold;
+  display: block;
+  color: #177577;
+  margin-bottom: 10px;
+}
+
+.historico-agendamento p {
+  font-size: large;
+  font-weight: 500;
+}
+
+.area-btn-status {
+  margin: 20px 0;
+  display: flex;
+  gap: 30px;
+}
+
+.area-btn-status button {
+  font-size: large;
+  font-weight: 600;
+}
+
+.area-btn-status button:hover {
+  background-color: rgba(108, 173, 4, 0.479);
+  transition-duration: 0.4s;
+}
+
+.area-btn-status .btn-finalizar {
+  background-color: #01b86c;
+
+}
+
+.area-btn-status .btn-iniciar {
+  background-color: #cfcc0a;
+}
+
+.title-logo {
+  width: calc(100% + 40px);
+  background-image: linear-gradient(90deg, transparent, white,white,white,white, transparent);
+}
+
+
+
+
 
 /* Responsividades */
 @media (max-width:600px){

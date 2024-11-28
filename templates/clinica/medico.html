@@ -30,22 +30,26 @@
         <table>
             <thead>
                 <tr>
+                    <th>ID</th>
                     <th>Nome</th>
                     <th>email</th>
                     <th>especialidade</th>
                     <th>Telefone</th>
-                    <th></th>
+                    <th style="text-align: center;">Ações</th>
                 </tr>
             </thead>
             <tbody>
                 {% for medico in medicos %}
                 <tr>
+                    <td>#{{medico.id}}</td>
                     <td>{{medico.nome}}</td>
                     <td>{{medico.email}}</td>
                     <td>{{medico.especialidade}}</td>
                     <td>{{medico.telefone}}</td>   
-                    <td>
-                        <button class="delete">Delete</button>
+                    <td class="coluna-btn">
+                        <a href="{% url 'medico_delete' medico.id %}" class="delete">
+                          <i class="fa-solid fa-trash"></i>
+                        </a>
                     </td>
                 </tr>
                 {% endfor %}

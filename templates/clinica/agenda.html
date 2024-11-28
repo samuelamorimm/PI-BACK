@@ -29,19 +29,21 @@
                     <th>especialidade</th>
                     <th>Horário</th>
                     <th>Data</th>
-                    <th></th>
+                    <th style="text-align: center;">Ações</th>
                 </tr>
             </thead>
             <tbody>
                 {% for agenda in agendas %}
                 <tr>
-                    <td>{{agenda.id}}</td>
+                    <td>#{{agenda.id}}</td>
                     <td>{{agenda.medico}}</td>
                     <td>{{agenda.especialidade}}</td>
                     <td>{{agenda.horario}}</td> 
                     <td>{{agenda.data}}</td>  
-                    <td>
-                        <button class="delete">Delete</button>
+                    <td class="coluna-btn">
+                        <a href="{% url 'agenda_delete' agenda.id %}" class="delete">
+                          <i class="fa-solid fa-trash"></i>
+                        </a>
                     </td>
                 </tr>
                 {% endfor %}

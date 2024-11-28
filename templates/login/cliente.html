@@ -22,17 +22,35 @@
         <div class="area-name" style="display: flex; justify-content: space-between;">
             <div>
                 <h2>Minhas Informações</h2>
-                {% if user.is_superuser %}
-                <h5>Status: Administrador</h5>
-                {% else %}
-                <h5>Status: Usuário</h5>
-                {% endif %}
+
+                <div class="container-info">
+                    <Label class="label-info">Nome:</Label>
+                    <p>{{ cliente.nome }}</p>
+
+                    <label for="" class="label-info">CPF:</label>
+                    <p>{{cliente.cpf}}</p>
+
+                    <label for="" class="label-info">E-mail:</label>
+                    <p>{{cliente.email}}</p>
+
+                    <label for="" class="label-info">Telfone:</label>
+                    <p>{{cliente.telefone}}</p>
+                    {% if user.is_superuser %}
+                    <Label>Status:</Label>
+                    <p>Administrador</p>
+                    {% else %}
+                    <label for="">Status:</label>
+                    <p>Usuário</p>
+                    {% endif %}
+                </div>
+
             </div>
 
             <div>
                 <h2>ID: #{{user.id}}</h2>
             </div>
         </div>
+        <h2>Edite suas Informações</h2>
         <form action="{% url 'editar_cliente' %}" method="post">
             <!-- Campo: Primeiro Nome -->
              {% csrf_token %}

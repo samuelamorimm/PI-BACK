@@ -2,18 +2,51 @@
 
 {% block conteudo %}
 
-    <div class="container">
-        {% if user.is_superuser %}
-        <form action="{% url 'alterar_status_finalizar' agendamento.id %}" method="post">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-success">Finalizar</button>
-        </form>
+    <div class="historico-agendamento">
+        <h1>Informações do Agendamento</h1>
+        <label for="">Nome:</label>
+        <p>{{agendamento.nome_cliente}}</p>
 
-        <form action="{% url 'alterar_status_iniciar' agendamento.id %}" method="post">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-warning">Iniciar</button>
-        </form>
+        <label for="">CPF:</label>
+        <p>{{agendamento.cpf_cliente}}</p>
+
+        <label for="">Data: </label>
+        <p>{{agendamento.data}}</p>
+        
+        <label for="">Serviço - Médico - Horário:</label>
+        <p>{{agendamento.servico}}</p>
+
+        <label for="">Forma de Pagamento:</label>
+        <p>{{agendamento.forma_pagamento}}</p>
+        
+        {% if user.is_superuser %}
+        <div class="area-btn-status">
+            <form action="{% url 'alterar_status_finalizar' agendamento.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn-finalizar">Finalizar Agendamento</button>
+            </form>
+            <form action="{% url 'alterar_status_iniciar' agendamento.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn-iniciar">Iniciar Agendamento</button>
+            </form>
+        </div>
         {% endif %}
+
+        <h1>Serviço</h1>
+        <label for="">Serviço:</label>
+        <p>{{agendamento.servico.especialidade}}</p>
+        <label for="">Preço:</label>
+        <p>R$ {{agendamento.servico.especialidade.preco}}</p>
+
+        <h1>Médico</h1>
+        <label for="">Nome do médico:</label>
+        <p>{{agendamento.servico.medico.nome}}</p>
+
+        <h2>Contato:</h2>
+        <label for="">Email:</label>
+        <p>{{agendamento.servico.medico.email}}</p>
+        <label for="">Telefone:</label>
+        <p>{{agendamento.servico.medico.telefone}}</p>
     </div>
 
 {% endblock %}
