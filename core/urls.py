@@ -1,13 +1,12 @@
 from django.contrib import admin
 from django.urls import include, path
-from agendamentos.views import agendamentos, agendar, deletar_agendamento, editar_agendamento, medico_view, medico_create, medico_delete, agenda_view, agenda_create, agenda_delete, especialidade_view, especialidade_create, especialidade_delete, alterar_status_f, alterar_status_i, buscar_servicos, registrar_agendamento
+from agendamentos.views import agendamentos, agendar, deletar_agendamento, editar_agendamento, medico_view, medico_create, medico_delete, agenda_view, agenda_create, agenda_delete, especialidade_view, especialidade_create, especialidade_delete, alterar_status_f, alterar_status_i, buscar_servicos
 
 from usuarios import views as views_usuarios
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/', agendamentos, name='home'),
-    path('registrar-agendamento', registrar_agendamento, name='registrar_agendamento'),
     path('agendar/', agendar, name='agendar'),
     path('editar-agendamento/<int:id>', editar_agendamento, name='editar_agendamento'),
     path('deletar-agendamento/<int:id>', deletar_agendamento, name='deletar_agendamento'),
@@ -26,7 +25,7 @@ urlpatterns = [
     path('delagenda/<int:id>', agenda_delete, name='agenda_delete'),
 
 
-    path('especialidades', especialidade_view, name='especialidades_view'),
+    path('especialidades/', especialidade_view, name='especialidades_view'),
     path('especialidadeadd/', especialidade_create, name='especialidade_create'),
     path('especialidadedel/<int:id>', especialidade_delete, name ='especialidade_delete'),
 
@@ -34,9 +33,9 @@ urlpatterns = [
     path('accounts/', include('usuarios.urls')),
 
 
-    path('cliente', views_usuarios.cliente, name='cliente'),
-    path('editar_cliente', views_usuarios.editar_cliente, name='editar_cliente'),
+    path('cliente/', views_usuarios.cliente, name='cliente'),
+    path('editar_cliente/', views_usuarios.editar_cliente, name='editar_cliente'),
 
  # URLs do django-allauth
-    path('accounts/', include('allauth.urls')), 
+    #path('accounts/', include('allauth.urls')), 
 ]

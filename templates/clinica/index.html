@@ -1,123 +1,46 @@
 {% extends 'clinica/base.html' %}
 {% load static %}
+
+
 {% block conteudo %}
 
-<div class="container">
-    <h2>Agendamentos</h2>
-    
-    <form action="{% url 'agendar' %}" method="post">
-        {% csrf_token %}
-        {% for field in form%}
-        <div>{{field.label}}:</div>
-        <div class="mb-2">{{field}}</div>
-        {% endfor %}
+<div class="main-content">
+  <h1>Realize o Agendamento</h1>
+  <form method="post" action="{% url 'agendar' %}">
+      {% csrf_token %}
+      <label for="nome">Nome:</label>
+      <input type="text" id="nome" name="nome" required>
 
-        <div>
-            <input type="date" name="data" id="id_data" class="mb-2" required>
-        </div>
+      <label for="cpf">CPF:</label>
+      <input type="text" id="cpf" name="cpf" required maxlength="11">
 
-        <div>
-            <select name="servico" id="id_servico">
-                <option value="">Selecione um Serviço</option>
-            </select>
-        </div>
-        <button type="submit" class="btn btn-success">Agendar</button>
-        <!-- {{form.as_p}} -->
-    </form>
+      <label for="data">Data:</label>
+      <input type="date" id="id_data" name="data" required>
+
+      <label for="pagamento">Pagamento:</label>
+      <select name="pagamento" id="pagamento">
+          <option value="PIX">Pix</option>
+          <option value="CREDITO">Cartão</option>
+          <option value="ESPECIE">Dinheiro</option>
+      </select>
+
+      <label for="servico">Serviço:</label>
+      <select id="id_servico" name="servico">
+          <option value="">Selecionar um servico</option>
+      </select>
+
+      <input type="submit" value="Agendar">
+  </form>
 </div>
 
-<div class="container">
-    <h2>Historico</h2>
-    <ul class="list-group">
-        {% for agendamento in agendamentos %}
-        <li class="mb-3 d-flex flex-column gap-1">
-            <hr>
-            <div>
-                <label for="">Nome:</label> {{agendamento.nome_cliente}}
-            </div>
-            <div>
-                <label for="">CPF:</label> 
-                {{agendamento.get_cpf}}
-            </div>
-            <div>
-                <label for="">Data:</label>
-                {{agendamento.data}}
-            </div>
-            <div>
-                <label for="">Serviço:</label> 
-                {{agendamento.servico}}
-            </div>
-            <div>
-                <label for="">Registro:</label>
-                {{agendamento.registro|date:"d,  F,  Y" }}
-            </div>
-            <div>
-                {% if agendamento.status == "P" %}
-                <span>Status:</span>
-                    <div style="height: 15px; width: 15px; background-color: rgb(212, 25, 25); border-radius: 50%;"></div>
-                {% elif agendamento.status == "A" %}
-                <span>Status:</span>
-                    <div style="height: 15px; width: 15px; background-color: rgb(152, 161, 33); border-radius: 50%;"></div>
-                {% else %}
-                <span>Status:</span>
-                    <div style="height: 15px; width: 15px; background-color: rgb(21, 114, 0); border-radius: 50%;"></div>
-                {% endif %}
-            </div>
-            <div>
-                <a href="{% url 'deletar_agendamento' agendamento.id %}">
-                    <button class="btn btn-danger mt-3">
-                        DELETE
-                    </button>
-                </a>
-                
-            </div>
-            <div>
-                <a href="{% url 'editar_agendamento' agendamento.id %}">
-                    <button class="btn btn-primary">
-                        Edit
-                    </button>
-                </a>
-            </div>
-            <hr>
-        </li>
-        {% endfor %}
-    </ul>
-</div>
-
-{% endblock %}
-
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Administração</title>
-  <link rel="stylesheet" href="{% static 'src/css/style.css' %}" />
-  <link rel="shortcut icon" href="src/img/logo-icon.png" type="image/x-icon">
-</head>
-<body>
-  <div class="container">
-    <aside class="sidebar">
-        <img class="logo" src="src/img/logo-icon.png" alt="Logo" />
-      <nav>
-        <ul>
-          <li><a href="#">Início</a></li>
-          <li><a href="index.html">Administração</a></li>
-          <li><a href="{% url 'registrar_agendamento' %}">Agendar</a></li>
-          <li><a href="medicos.html">Médicos</a></li>
-          <li><a href="especialidades.html">especialidades</a></li>
-      </ul>
-      </nav>
-    </aside>
-
-    <main class="main-content">
+    <main class="historico">
       <h1>Administração</h1>
       <table>
         <thead>
           <tr>
             <th>Id</th>
             <th>Nome</th>
-            <th>Telefone</th>
+            <th>Serviço  -  Médico  -  Horário</th>
             <th>Data</th>
             <th>Status</th>
             <th>Ações</th>
@@ -139,21 +62,45 @@
             <td><span class="status concluido">Concluído</span></td>
             {% endif %}
             <td>
-                <button class="config" ><img src="src/img/settings.png" alt="Editar"  /></button>
-                <button class="delete" id="delete-button"adi><img src="src/img/delete.png" alt="Excluir" onclick="excluirForm()"/></button>
+                <button>Delete</button>
             </td>
         </tr>
         {% endfor %}
         </tbody>
       </table>
-      <button class="register-button">
-        <a href="resgiter.html">Registrar Consulta</a> 
-      </button>
     </main>
-  </div>
-  
-  <script src="src/js/script.js"></script>
-</body>
-</html>
+
+    <script>
+      document.getElementById('id_data').addEventListener('change', function() {
+          var dataSelecionada = this.value
+      
+          if (dataSelecionada) {
+              fetch(`/buscar-servicos/${dataSelecionada}/`)
+              .then(response => response.json())
+              .then(data => {
+                  var servicoSelect = document.getElementById('id_servico');
+                  servicoSelect.innerHTML = '<option value="">Selecione um serviço</option>'
+      
+                  if (data.servicos.length === 0) {
+                      // Se não houver serviços, exibe a mensagem "Sem serviços para esta data"
+                      var option = document.createElement('option');
+                      option.value = '';
+                      option.textContent = 'Sem serviços para esta data';
+                      option.style.color = 'red'
+                      servicoSelect.appendChild(option);
+                  } else {
+                      // Caso haja serviços, adiciona as opções
+                      data.servicos.forEach(function(servico) {
+                          var option = document.createElement('option');
+                          option.value = servico.id;
+                          option.textContent = servico.servico || 'Serviço não disponível'; // Caso algum serviço não tenha nome
+                          servicoSelect.appendChild(option);
+                      });
+                  }
+              })
+          }       
+      })
+  </script>
+  {% endblock %}
 
 

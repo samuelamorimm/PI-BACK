@@ -1,30 +1,94 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'src/css/cliente.css' %}">
+    <title>Informações Pessoais</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css" integrity="sha512-9xKTRVabjVeZmc+GUW8GgSmcREDunMM+Dt/GrzchfN8tkwHizc5RP4Ok/MXFFy5rIjJjzhndFScTceq5e6GvVQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    <div class="container">
-        <h2>Meu Perfil</h2>
-        {% if cliente %}
-            <h3>Nome completo:</h3>
-            <div>{{ cliente.nome }}</div> <br>
-            <h3>Email:</h3>
-            <div>{{ cliente.email }}</div> <br>
-            <h3>CPF:</h3>
-            <div>{{ cliente.cpf }}</div> <br>
-            <h3>Telefone:</h3>
-            <div>{{ cliente.telefone}}</div> <br>
-        {% else %}
-            <p>Você ainda não preencheu suas informações pessoais.</p>
-        {% endif %}
-        <a class="btn btn-primary" href="{% url 'editar_cliente' %}">Editar</a>
-        <a class="btn btn-warning" href="{% url 'home' %}">Menu incial</a>
+<header id="title">
+    <!-- Botão de voltar -->
+    <a href="{% url 'home' %}" class="back-button">
+        <i class="fa-solid fa-arrow-left"></i> Voltar
+    </a>
+    <h1>Informações Pessoais</h1>
+</header>
+
+<main>
+    <div class="quadrado">
+        <div class="area-name" style="display: flex; justify-content: space-between;">
+            <div>
+                <h2>Minhas Informações</h2>
+                {% if user.is_superuser %}
+                <h5>Status: Administrador</h5>
+                {% else %}
+                <h5>Status: Usuário</h5>
+                {% endif %}
+            </div>
+
+            <div>
+                <h2>ID: #{{user.id}}</h2>
+            </div>
+        </div>
+        <form action="{% url 'editar_cliente' %}" method="post">
+            <!-- Campo: Primeiro Nome -->
+             {% csrf_token %}
+            <label for="nome1">Nome:</label>
+            <div class="input-container">
+                <input type="text" id="nome1" name="nome" placeholder="Ex.: João" required {% if cliente %}value="{{ cliente.nome }}"{% endif %}>
+                <i class="fa-solid fa-pen-to-square"></i>
+            </div>
+
+            <!-- Campo: CPF -->
+            <label for="cpf">CPF:</label>
+            <div class="input-container">
+                <input type="text" id="cpf" name="cpf" maxlength="11" placeholder="000.000.000-00" oninput="mascaraCPF()" required {% if cliente %}value="{{ cliente.cpf }}"{% endif %}>
+                <i class="fa-solid fa-pen-to-square"></i>
+            </div>
+            
+            <!-- Campo: Email -->
+            <label for="email">Email:</label>
+            <div class="input-container">
+                <input type="email" id="email" name="email" placeholder="exemplo@email.com" required {% if cliente %}value="{{ cliente.email }}" {% else %}value="{{user.email}}"{% endif %}>
+                <i class="fa-solid fa-pen-to-square" ></i>
+            </div>
+
+            <!-- Campo: Telefone -->
+            <label for="telefone">Telefone:</label>
+            <div class="input-container">
+                <input type="tel" id="telefone" name="telefone" maxlength="11" placeholder="(00) 00000-0000" oninput="mascaraTelefone()" required {% if cliente %}value="{{ cliente.telefone }}"{% endif %}>
+                <i class="fa-solid fa-pen-to-square"></i>
+            </div>
+
+            <!-- Botões -->
+            <div class="button-container">
+                <button type="reset" class="btn-clear">Limpar</button>
+                <button type="submit" class="btn-save">Salvar</button>
+            </div>
+        </form>
     </div>
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</main>
+
+<script>
+    // Função para aplicar a máscara no CPF
+    function mascaraCPF(input) {
+        let value = input.value.replace(/\D/g, ""); // Remove tudo que não é dígito
+        value = value.replace(/(\d{3})(\d)/, "$1.$2");
+        value = value.replace(/(\d{3})(\d)/, "$1.$2");
+        value = value.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+        input.value = value;
+    }
+
+    // Função para aplicar a máscara no Telefone
+    function mascaraTelefone(input) {
+        let value = input.value.replace(/\D/g, ""); // Remove tudo que não é dígito
+        value = value.replace(/^(\d{2})(\d)/g, "($1) $2"); // Adiciona parênteses no DDD
+        value = value.replace(/(\d{5})(\d)/, "$1-$2"); // Adiciona o traço
+        input.value = value;
+    }
+</script>
 </body>
 </html>

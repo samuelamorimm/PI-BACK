@@ -1,85 +1,30 @@
 {% extends 'clinica/base.html' %}
 
-{% block conteudo %}
-    <div class="container">
-        <h1>Especialidades</h1>
-        <form action="{% url 'especialidade_create' %}" method="POST">
-            {% for fields in form %}
-            {% csrf_token %}
-            {{fields.label}}
-            <div>{{fields}}</div>
-            {% endfor %}
-            <button type="submit" class="btn btn-success mt-4">Adicionar Especialidade</button>
-        </form>
-    </div>
 
-    <div class="container">
-        <h2>Especialidades Registradas</h2>
-        <table class="table-bordered">
-            <tr>
-                <th class="p-2 text-center">ID</th>
-                <th class="p-2 text-center">Especialidade</th>
-                <th class="p-2 text-center">Preço</th>
-            </tr>
-            {% for especialidade in especialidades %}
-            <tr>
-                <td class="p-2 text-center">{{especialidade.id}}</td>
-                <td class="p-2 text-center">{{especialidade.nome}}</td>
-                <td class="p-2 text-center">{{especialidade.preco}}</td>
-                <td class="p-2 text-center"><a href="{% url 'especialidade_delete' especialidade.id %}" class='btn btn-danger'>Delete</a></td>
-            </tr>
-            {% endfor %}
-        </table>
-    </div>
-{% endblock %}
 
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastrar especialidade</title>
-    <link rel="stylesheet" href="src/css/style.css">
-    <link rel="shortcut icon" href="src/img/logo-icon.png" type="image/x-icon">
-
-</head>
-<body>
-    <div class="container">
-        <!-- Sidebar -->
-        <nav class="sidebar">
-            <img class="logo" src="src/img/logo-icon.png" alt="Logo">
-            <ul>
-                <li><a href="#">Início</a></li>
-                <li><a href="index.html">Administração</a></li>
-                <li><a href="resgiter.html">Agendar</a></li>
-                <li><a href="medicos.html">Médicos</a></li>
-                <li><a href="especialidades.html">especialidades</a></li>
-            </ul>
-        </nav>
-
-        <div id="especialidade">
+    {% block conteudo %}
             <!-- Especialidae -->
-            <div id="form-especialidade">
+            <div id="form-especialidade" class="main-content">
                 <h1>Especialidades</h1>
                 <form id="form" action="{% url 'especialidade_create' %}" method="POST">
+                    {% csrf_token %}
                     <div>
                         <label for="nome">Nome:</label>
                         <input type="text" id="nome" name="nome" required>
                     </div>
                     <div>
                         <label for="preco">Preço:</label>
-                        <input type="text" id="preco" name="preco" required>
+                        <input type="number" id="preco" name="preco" required>
                     </div>
                     <div>
                         <label for="descricao">Descrição:</label>
                         <textarea name="descricao" id="descricao" ></textarea>
                     </div>
-                    <button type="submit">Adicionar especialidade</button>
+                    <input type="submit" value="Cadastrar Especialidade">
                 </form>
             </div>
-
-            <div id="table-especialidade">
-                <h1>Histórico</h1>
+            <div id="table-especialidade" class="historico">
+                <h1>Especialidades Registradas</h1>
                 <table>
                 <thead>
                     <tr>
@@ -92,20 +37,20 @@
                 <tbody>
                     {% for especialidade in especialidades %}
                     <tr>
-                    <td>{{especialidade.id}}</td>
+                    <td>#{{especialidade.id}}</td>
                     <td>{{especialidade.nome}}</td>
                     <td>{{especialidade.preco}}</td>
                     <td>
-                        <button class="delete"><img src="src/img/delete.png" alt="Excluir" onclick="excluirForm()"/></button>
+                        <button class="delete">Delete</button>
                     </td>
-                    </tr>
-                    {% endfor %}
+                </tr>
+                {% endfor %}
                 </tbody>
                 </table>
             </div>
-        </div>
         
-    </div>
+        
+    
 
     
 
@@ -125,6 +70,6 @@
         
       </div>
     
-    <script src="src/js/script.js"></script>
-</body>
-</html>
+    
+
+    {% endblock %}

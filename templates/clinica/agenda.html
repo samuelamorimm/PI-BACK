@@ -1,36 +1,51 @@
+
+
 {% extends 'clinica/base.html' %}
 
 {% block conteudo %}
-    <div class="container">
-        <h2>Agendas</h2>
-        <form action="{% url 'add_agenda' %}" method="POST">
-            
-            <button type="submit" class="btn btn-success mt-4">Registrar Agenda</button>
+    <!-- Cadastro do médico -->
+    <div class="main-content">
+        <h1>Registre uma Agenda</h1>
+        <form id="formMedico" action="{% url 'add_agenda' %}" method="post">
+            {% csrf_token %}
+            <label for="data">Data:</label>
+            <input type="date" name="data">
+            {% for fields in form %}
+            <label for="">{{fields.label}}:</label>
+            {{fields}}
+            <br>
+            {% endfor %}
+
+            <input type="submit" value="Registrar Agenda">
         </form>
     </div>
 
-    <div class="container">
-        <h2>Agendas Disponiveis</h2>
-        <table class="table-bordered">
-            <tr>
-                <th class="p-2 text-center">ID</th>
-                <th class="p-2 text-center">Medico</th>
-                <th class="p-2 text-center">Especialidade</th>
-                <th class="p-2 text-center">Horário</th>
-                <th class="p-2 text-center">Data</th>
-            </tr>
-            {% for agenda in agendas %}
-            <tr>
-                <td class="p-2 text-center">{{agenda.id}}</td>
-                <td class="p-2 text-center">{{agenda.medico}}</td>
-                <td class="p-2 text-center">{{agenda.especialidade}}</td>
-                <td class="p-2 text-center">{{agenda.horario}}</td>
-                <td class="p-2 text-center">{{agenda.data}}</td>
-                <td class="p-2 text-center"><a href="{% url 'agenda_delete' agenda.id %}" class='btn btn-danger'>Delete</a></td>
-            </tr>
-            {% endfor %}
+    <div class="historico">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Medico</th>
+                    <th>especialidade</th>
+                    <th>Horário</th>
+                    <th>Data</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for agenda in agendas %}
+                <tr>
+                    <td>{{agenda.id}}</td>
+                    <td>{{agenda.medico}}</td>
+                    <td>{{agenda.especialidade}}</td>
+                    <td>{{agenda.horario}}</td> 
+                    <td>{{agenda.data}}</td>  
+                    <td>
+                        <button class="delete">Delete</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
         </table>
     </div>
-
-    
 {% endblock %}

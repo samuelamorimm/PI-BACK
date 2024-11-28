@@ -73,17 +73,27 @@ def editar_cliente(request):
     except Cliente.DoesNotExist:
         cliente = None
 
+    nome = request.POST.get('nome')
+    email = request.POST.get('email')
+    cpf = request.POST.get('cpf')
+    telefone = request.POST.get('telefone')
+       
+
     if request.method == 'POST':
         if cliente:
             form = ClienteForm(request.POST, instance=cliente)
         else:
             form = ClienteForm(request.POST)
 
-        if form.is_valid():
-            cliente = form.save(commit=False)
-            cliente.user = request.user
-            cliente.save()
-            return redirect('cliente')
+        
+        cliente = form.save(commit=False)
+        cliente.user = request.user
+        cliente.nome = nome
+        cliente.email = email
+        cliente.cpf = cpf
+        cliente.telefone = telefone
+        cliente.save()
+        return redirect('cliente')
     else:
         if cliente:
             form = ClienteForm(instance=cliente)
@@ -97,7 +107,7 @@ def editar_cliente(request):
 def cliente(request):
     try:
         cliente = Cliente.objects.get(user=request.user)
-    except cliente.DoesNotExist:
+    except Cliente.DoesNotExist:
         cliente = None
 
     return render(request, 'login/cliente.html', {"cliente": cliente})

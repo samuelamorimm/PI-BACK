@@ -10,31 +10,36 @@ from .forms import AgendamentoForm,MedicoForm, AgendaForm, EspecialidadeForm
 @login_required
 def agendamentos(request):
     form = AgendamentoForm()
-    agendamentos = Agendamento.objects.all()
+    if request.user.is_staff:  # Se for admin, ele verá todos os agendamentos
+        agendamentos = Agendamento.objects.order_by('-data')
+    else:
+        # Caso contrário, só mostra os agendamentos do próprio usuário
+        agendamentos = Agendamento.objects.filter(user=request.user)
     return render(request, 'clinica/index.html', {'agendamentos': agendamentos, 'form':form})
 
 @login_required
 def agendar(request):
-    if request.method == 'POST':
-        print(request.POST)
+    nome = request.POST.get("nome")
+    cpf = request.POST.get("cpf")
+    pagamento = request.POST.get("pagamento")
+    data = request.POST.get('data')
+    servico_id = request.POST.get('servico')
+    servico = ServicosAgendamentos.objects.filter(id=servico_id).first()
 
-        data = request.POST.get('data')
-        servico_id = request.POST.get('servico')
-        servico = ServicosAgendamentos.objects.filter(id=servico_id).first()
-        
-        form = AgendamentoForm(request.POST)
-        if form.is_valid():
-            agendamento = form.save(commit=False)
-            agendamento.user = request.user
-            agendamento.data = data
-            agendamento.servico = servico
-            agendamento.save()
+    if request.method == 'POST':    
+        agendamento = Agendamento(
+            user = request.user,
+            nome_cliente = nome,
+            cpf_cliente = cpf,
+            forma_pagamento = pagamento,
+            data = data,
+            servico = servico,
+        )
+        agendamento.save()
+        return redirect(agendamentos)
     else:
         form = AgendamentoForm()
     return redirect(agendamentos)
-
-def registrar_agendamento(request):
-    return render(request, 'clinica/register.html')
 
 @login_required
 def editar_agendamento(request, id):
@@ -67,7 +72,6 @@ def alterar_status_f(request, id): #finalizar agendamento
 def alterar_status_i(request, id): #iniciar agendamento
     a = get_object_or_404(Agendamento, id=id)
     if request.method == 'POST':
-        print("certyofkdjgsljgjsdjglkjdsfg")
         a.status = 'A'
         a.save()
         return redirect('home')
@@ -95,18 +99,27 @@ def medico_view(request):
 
     form = MedicoForm
     medicos = Medico.objects.all()
-    return render(request, 'clinica/medico.html', {'form':form, 'medicos':medicos})
+    especialidades = Especialidade.objects.all()
+    return render(request, 'clinica/medico.html', {'form':form, 'medicos':medicos, 'especialidades':especialidades})
 
 def medico_create(request):
+    nome = request.POST.get("nome")
+    email = request.POST.get("email")
+    telefone = request.POST.get("telefone")
+
+    especialidade_id = request.POST.get("especialidade")
+    especialidade = Especialidade.objects.filter(id=especialidade_id).first()
     if request.method == 'POST':
-        print(request.POST)
-        form = MedicoForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect(medico_view)
+        medico = Medico(
+            nome = nome,
+            especialidade = especialidade,
+            email = email,
+            telefone = telefone,
+        )
+        medico.save()
+        return redirect(medico_view)
     else:
-        form = AgendamentoForm()
-    return redirect(medico_view)
+        return redirect(medico_view)
 
 def medico_delete(request, id):
     medico = get_object_or_404(Medico, id=id)
@@ -153,11 +166,19 @@ def especialidade_view(request):
     return render(request, 'clinica/especialidade.html', {'especialidades':especialidades, 'form':form})
 
 def especialidade_create(request):
+    nome = request.POST.get('nome')
+    preco = request.POST.get('preco')
+    descricao = request.POST.get('descricao')
+
     if request.method == 'POST':
-        form = EspecialidadeForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect(especialidade_view)
+        especialidade = Especialidade(
+            nome = nome,
+            preco = preco,
+            descricao = descricao,
+        )
+        especialidade.save()
+
+        return redirect(especialidade_view)
     else:
         form = EspecialidadeForm
     return redirect(especialidade_view)

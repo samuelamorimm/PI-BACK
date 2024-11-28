@@ -1,39 +1,55 @@
 {% extends 'clinica/base.html' %}
 
 {% block conteudo %}
-    <div class="container">
-        <h2>Cadastrar um médico</h2>
-        <form action="{% url 'medico_create' %}" method="post">
-            {% for fields in form %}
-                {% csrf_token %}
-                {{fields.label}}
-                <div>{{fields}}</div>
+    <!-- Cadastro do médico -->
+    <div class="main-content">
+        <h1>Cadastre um médico</h1>
+        <form id="formMedico" action="{% url 'medico_create' %}" method="post">
+            {% csrf_token %}
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required>
+
+            <label for="especialidade">Especialidade:</label>
+            <select name="especialidade" id="especialidade">
+                {% for especialidade in especialidades %}
+                <option value="{{especialidade.id}}">{{especialidade}}</option>
                 {% endfor %}
-                <button type="submit" class="btn btn-success mt-4">Cadastrar Médico</button>
+            </select>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="telefone">Telefone:</label>
+            <input type="number" id="telefone" name="telefone" required maxlength="11">
+
+            <input type="submit" value="Cadastrar Médico">
         </form>
     </div>
 
-    <div class="container">
-        <h2>Médicos Cadastrados</h2>
-        <table class="table-bordered">
-            <tr class="">
-                <th class="p-3">Nome</th>
-                <th class="p-3">Email</th>
-                <th class="p-3">Especialidade</th>
-                <th class="p-3">Telefone</th>
-            </tr>
-
-            {% for medico in medicos %}
-            <tr>
-                <td class="p-2">{{medico.nome}}</td>
-                <td class="p-2">{{medico.email}}</td>
-                <td class="p-2">{{medico.especialidade}}</td>
-                <td class="p-2">{{medico.telefone}}</td>
-                <td class="p-3">
-                    <a href="{% url 'medico_delete' medico.id %}" class="btn btn-danger">Delete</a>
-                </td>
-            </tr>
-            {% endfor %}
+    <div class="historico">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>email</th>
+                    <th>especialidade</th>
+                    <th>Telefone</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for medico in medicos %}
+                <tr>
+                    <td>{{medico.nome}}</td>
+                    <td>{{medico.email}}</td>
+                    <td>{{medico.especialidade}}</td>
+                    <td>{{medico.telefone}}</td>   
+                    <td>
+                        <button class="delete">Delete</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
         </table>
     </div>
 {% endblock %}
